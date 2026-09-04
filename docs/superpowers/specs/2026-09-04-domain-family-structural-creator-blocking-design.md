@@ -104,15 +104,15 @@ Exact rules remain the fast, deterministic first layer. Structural detection is 
 
 ### 6.2 Page-class policy
 
-| Page class | Structural behavior |
-| --- | --- |
-| `restricted` | Do nothing. |
-| `search` | Protect the search form, filters, pagination, and complete results root. Hide only a separate, high-confidence recommendation region outside it. |
-| `library` | Protect user-owned lists. Hide only a separate, high-confidence recommendation region outside them. |
-| `watch` | Protect the selected player and essential controls. Hide recommendation grids, sidebars, carousels, end screens, creator continuation modules, and uploader identity. |
-| `blocked-listing` | Hide the discovery grid and creator/listing feed while preserving navigation needed to reach search. |
-| `home` | Hide passive video grids and feed sections while preserving site navigation and search. |
-| `unknown` | Preserve ambiguous content and hide only high-confidence recommendation regions. |
+| Page class        | Structural behavior                                                                                                                                                   |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `restricted`      | Do nothing.                                                                                                                                                           |
+| `search`          | Protect the search form, filters, pagination, and complete results root. Hide only a separate, high-confidence recommendation region outside it.                      |
+| `library`         | Protect user-owned lists. Hide only a separate, high-confidence recommendation region outside them.                                                                   |
+| `watch`           | Protect the selected player and essential controls. Hide recommendation grids, sidebars, carousels, end screens, creator continuation modules, and uploader identity. |
+| `blocked-listing` | Hide the discovery grid and creator/listing feed while preserving navigation needed to reach search.                                                                  |
+| `home`            | Hide passive video grids and feed sections while preserving site navigation and search.                                                                               |
+| `unknown`         | Preserve ambiguous content and hide only high-confidence recommendation regions.                                                                                      |
 
 Protection always wins. A candidate that contains or intersects a protected search-results root, selected player, or user-owned library root is rejected.
 

@@ -23,7 +23,7 @@ describe("Manifest V3 build", () => {
     };
 
     expect(manifest.manifest_version).toBe(3);
-    expect(manifest.version).toBe("0.1.3");
+    expect(manifest.version).toBe("0.1.4");
     expect(manifest.name).toBe("Zen Master");
     expect([...manifest.permissions].sort()).toEqual(["activeTab", "scripting", "storage"]);
     expect(manifest.optional_host_permissions).toEqual(["http://*/*", "https://*/*"]);

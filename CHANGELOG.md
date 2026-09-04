@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.4 — Ruleset 1
+
+### Added
+
+- Extended every verified built-in domain root to all of its subdomains, including `xhamster.desi` and regional hosts beneath it.
+- Added conservative structural recommendation detection alongside all 50 dedicated adapters.
+- Hid uploader identity, creator continuation modules, and residual creator/profile links on watch pages.
+
+### Repaired
+
+- Added selector-independent NoodleMagazine feed and watch-page protection while preserving its search results and selected player.
+- Reprocessed existing feed containers when sites insert recommendation cards individually.
+
 ## 0.1.3 — Ruleset 1
 
 ### Repaired

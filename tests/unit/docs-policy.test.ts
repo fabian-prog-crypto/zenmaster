@@ -11,9 +11,11 @@ describe("documentation policy", () => {
     ]);
     expect(readme).toContain("Block recommendations on this site");
     expect(readme).toContain("Search results remain available");
+    expect(readme).toContain("verified built-in domain root and its subdomains");
+    expect(readme).toContain("uploader and creator continuation paths");
     expect(privacy).toContain("No telemetry");
     expect(privacy).toContain("chrome.storage.local");
-    expect(changelog).toContain("0.1.1");
+    expect(changelog).toContain("0.1.4");
     expect(changelog).toContain("Ruleset 1");
     expect(smoke.match(/^\|\s*`[^`]+`\s*\|/gm) ?? []).toHaveLength(50);
   });
