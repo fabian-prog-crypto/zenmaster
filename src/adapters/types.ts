@@ -47,6 +47,7 @@ export interface SiteAdapter {
   protectedSelectors: Partial<Record<PageKind, readonly string[]>>;
   hideSelectors: Partial<Record<PageKind, readonly Rule[]>>;
   globalRecommendationSelectors: readonly Rule[];
+  recommendationCardSelectors?: readonly string[];
   healthChecks: Partial<Record<PageKind, readonly HealthCheck[]>>;
   disableAutoAdvance?: AutoAdvanceRule;
 }

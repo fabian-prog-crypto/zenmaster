@@ -15,6 +15,7 @@ export function defineAdapter(input: SiteAdapter): Readonly<SiteAdapter> {
   for (const selectors of Object.values(input.protectedSelectors)) {
     for (const selector of selectors ?? []) validateSelector(selector);
   }
+  for (const selector of input.recommendationCardSelectors ?? []) validateSelector(selector);
   for (const checks of Object.values(input.healthChecks)) {
     for (const check of checks ?? []) validateSelector(check.selector);
   }

@@ -1,6 +1,10 @@
 import catalogJson from "./catalog.json" with { type: "json" };
 import { defineAdapter } from "./define-adapter.js";
-import { feedRulesFor, recommendationRulesFor } from "./families/profiles.js";
+import {
+  feedRulesFor,
+  recommendationCardSelectorsFor,
+  recommendationRulesFor
+} from "./families/profiles.js";
 import type { CatalogEntry, ClassificationContext, SiteAdapter } from "./types.js";
 
 const catalog = catalogJson as readonly CatalogEntry[];
@@ -47,6 +51,7 @@ export function createCatalogAdapter(id: string): SiteAdapter {
       "blocked-listing": listingFeeds
     },
     globalRecommendationSelectors: recommendationRulesFor(entry),
+    recommendationCardSelectors: recommendationCardSelectorsFor(entry),
     healthChecks: {
       home: [{ id: "document-body", selector: "body", required: true }],
       search: [{ id: "document-body", selector: "body", required: true }],

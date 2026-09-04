@@ -61,6 +61,22 @@ const siteRecommendationSelectors: Partial<Record<string, readonly string[]>> = 
   motherless: ["#content-related", ".media-related"]
 };
 
+const recommendationCards = [
+  ".pcVideoListItem",
+  ".video-card",
+  ".video-item",
+  ".thumb-block",
+  ".thumb",
+  "[data-video-id]",
+  "[data-testid*='video-card' i]",
+  "li",
+  "article"
+];
+
+const siteRecommendationCardSelectors: Partial<Record<string, readonly string[]>> = {
+  pornhub: ["#relateRecommendedItems > li", "#relatedVideosCenter > li"]
+};
+
 export function feedRulesFor(entry: CatalogEntry, namespace: "home" | "listing"): Rule[] {
   const selectors = [...commonFeedSelectors, ...familyFeedSelectors[entry.family]];
   return unique(selectors).map((selector, index) => ({
@@ -78,6 +94,10 @@ export function recommendationRulesFor(entry: CatalogEntry): Rule[] {
       container: { type: "self" }
     })
   );
+}
+
+export function recommendationCardSelectorsFor(entry: CatalogEntry): string[] {
+  return unique([...(siteRecommendationCardSelectors[entry.id] ?? []), ...recommendationCards]);
 }
 
 function unique(values: readonly string[]): string[] {

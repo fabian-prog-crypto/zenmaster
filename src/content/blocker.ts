@@ -64,6 +64,11 @@ export class Blocker {
     return this.#owned.size;
   }
 
+  get hiddenRoots(): readonly Element[] {
+    this.#purgeDisconnected();
+    return [...this.#owned];
+  }
+
   #installStyle(): void {
     if (this.page.getElementById("afb-hide-style")) return;
     const style = this.page.createElement("style");
