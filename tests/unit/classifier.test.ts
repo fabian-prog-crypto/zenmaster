@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { defineAdapter } from "../../src/adapters/define-adapter.js";
+import { adapterRegistry } from "../../src/adapters/index.js";
 import { classifyPage } from "../../src/content/classifier.js";
 
 const adapter = defineAdapter({
@@ -47,5 +48,15 @@ describe("page classifier", () => {
       degraded: true,
       reason: "classification-error"
     });
+  });
+
+  it("classifies creator profile routes as blocked listings", () => {
+    const known = adapterRegistry.getAdapterForHostname("noodlemagazine.com")!;
+    expect(
+      classifyPage(known, new URL("https://noodlemagazine.com/profile/fixture"), document).pageKind
+    ).toBe("blocked-listing");
+    expect(
+      classifyPage(known, new URL("https://noodlemagazine.com/channel/fixture"), document).pageKind
+    ).toBe("blocked-listing");
   });
 });

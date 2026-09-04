@@ -13,7 +13,7 @@ const RESTRICTED =
 const LIBRARY = /\/(?:history|favorites?|favourites?|saved|subscriptions?|playlists?)(?:\/|$)/i;
 const WATCH = /\/(?:watch|video|videos|view|embed)(?:\/|$)/i;
 const LISTING =
-  /\/(?:categor(?:y|ies)|tags?|performers?|models?|studios?|channels?|popular|trending|recent|best|featured)(?:\/|$)/i;
+  /\/(?:categor(?:y|ies)|tags?|performers?|models?|studios?|channels?|profiles?|creators?|uploaders?|pornstars?|popular|trending|recent|best|featured)(?:\/|$)/i;
 
 export function createCatalogAdapter(id: string): SiteAdapter {
   const entry = catalog.find((candidate) => candidate.id === id);

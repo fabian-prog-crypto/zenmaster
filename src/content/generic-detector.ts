@@ -54,6 +54,8 @@ const RECOMMENDATION_TERMS = [
   "featured",
   "up next",
   "more like",
+  "more from",
+  "more by",
   "you may also like",
   "empfohlen",
   "ähnlich",

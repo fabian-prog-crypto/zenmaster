@@ -52,6 +52,11 @@ describe("launch adapter contract", () => {
           expect(node.hasAttribute("data-afb-hidden")).toBe(false);
           expect(node.closest("[data-afb-hidden]")).toBeNull();
         }
+        for (const node of document.querySelectorAll('[data-afb-expect="neutralize"]')) {
+          expect(node.hasAttribute("data-afb-link-neutralized")).toBe(true);
+          expect(node.getAttribute("aria-disabled")).toBe("true");
+          expect(node.getAttribute("tabindex")).toBe("-1");
+        }
         kernel.stop();
       });
     }

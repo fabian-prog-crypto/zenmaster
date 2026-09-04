@@ -131,6 +131,62 @@ describe("content kernel", () => {
     expect(document.querySelector(".video-player")?.closest("[data-afb-hidden]")).toBeNull();
   });
 
+  it("hides watch-page creator paths without hiding the selected player", () => {
+    document.body.innerHTML = `<main>
+      <div class="video-player"><video controls></video></div>
+      <div class="uploader-info"><a href="/profile/fixture">[creator]</a></div>
+      <div class="video-metadata"><a id="residual-creator" href="/channel/fixture">[creator]</a></div>
+      <section aria-label="More from this account">
+        <div class="entry"><a href="/v/1"><span data-thumbnail></span></a></div>
+        <div class="entry"><a href="/v/2"><span data-thumbnail></span></a></div>
+        <div class="entry"><a href="/v/3"><span data-thumbnail></span></a></div>
+      </section>
+    </main>`;
+    const kernel = createContentKernel({
+      page: document,
+      url: new URL("https://noodlemagazine.com/video/fixture"),
+      registry: adapterRegistry,
+      observe: false,
+      inFrame: false
+    });
+
+    kernel.start();
+
+    expect(document.querySelector(".uploader-info")?.hasAttribute("data-afb-hidden")).toBe(true);
+    expect(document.querySelector("section")?.hasAttribute("data-afb-hidden")).toBe(true);
+    expect(document.querySelector("#residual-creator")?.getAttribute("aria-disabled")).toBe("true");
+    expect(document.querySelector(".video-player")?.closest("[data-afb-hidden]")).toBeNull();
+  });
+
+  it("restores neutralized creator links after an SPA route leaves watch mode", async () => {
+    history.replaceState({}, "", "/video/fixture");
+    document.body.innerHTML = `<main>
+      <div class="video-player"><video controls></video></div>
+      <div class="video-metadata"><a id="creator" href="/profile/fixture" tabindex="2">[creator]</a></div>
+    </main>`;
+    const kernel = createContentKernel({
+      page: document,
+      url: () => new URL(`https://noodlemagazine.com${location.pathname}${location.search}`),
+      registry: adapterRegistry,
+      observe: true,
+      inFrame: false
+    });
+    kernel.start();
+    expect(document.querySelector("#creator")?.hasAttribute("data-afb-link-neutralized")).toBe(
+      true
+    );
+
+    history.pushState({}, "", "/search?q=fixture");
+    window.dispatchEvent(new Event(ROUTE_EVENT));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(document.querySelector("#creator")?.hasAttribute("data-afb-link-neutralized")).toBe(
+      false
+    );
+    expect(document.querySelector("#creator")?.getAttribute("tabindex")).toBe("2");
+    kernel.stop();
+  });
+
   it("replaces the count after a single-page route change", async () => {
     history.replaceState({}, "", "/video/with-recommendations");
     document.body.innerHTML = `<main>

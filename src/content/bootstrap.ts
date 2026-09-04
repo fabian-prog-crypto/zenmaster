@@ -7,6 +7,7 @@ import type { PageStatus } from "../shared/status.js";
 import { AutoAdvanceController } from "./auto-advance.js";
 import { Blocker } from "./blocker.js";
 import { classifyPage } from "./classifier.js";
+import { detectCreatorPaths } from "./creator-guard.js";
 import {
   classifyGenericPage,
   registerGenericProtectedRoots,
@@ -15,6 +16,7 @@ import {
   type StructuralScanResult
 } from "./generic-detector.js";
 import { MutationController } from "./mutation-controller.js";
+import { LinkNeutralizer } from "./link-neutralizer.js";
 import { ProtectionRegistry } from "./protection-registry.js";
 import { countRecommendationCards } from "./recommendation-counter.js";
 import { RouteController } from "./route-controller.js";
@@ -37,6 +39,7 @@ export interface ContentKernel {
 
 export function createContentKernel(options: ContentKernelOptions): ContentKernel {
   const protection = new ProtectionRegistry();
+  const linkNeutralizer = new LinkNeutralizer(options.page, protection);
   let blocker: Blocker | undefined;
   let autoAdvance = new AutoAdvanceController(options.page);
   let mutation: MutationController | undefined;
@@ -114,16 +117,29 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
     return applyStructural(root, genericContext, "generic-high-confidence");
   };
 
+  const applyCreatorPaths = (
+    root: Document | Element | ShadowRoot,
+    context: GenericPageContext
+  ) => {
+    const detected = detectCreatorPaths(root, {
+      pageKind: context.pageKind,
+      protection,
+      ...(context.primaryPlayer ? { primaryPlayer: context.primaryPlayer } : {})
+    });
+    blocker?.blockElements(detected.containers, "creator-path");
+    linkNeutralizer.neutralize(
+      detected.links.filter((link) => link.closest("[data-afb-hidden]") === null)
+    );
+  };
+
   const processInserted = (root: Element | ShadowRoot) => {
     if (adapter) {
       registerKnownProtection(adapter, pageKind);
       const result = blocker?.applyRules(root, exactRules(adapter, pageKind));
       if (result?.errors.length) status = { ...status, state: "needs-update" };
-      const scan = applyStructural(
-        root,
-        structuralContextForKnown(pageKind),
-        "structural-high-confidence"
-      );
+      const context = structuralContextForKnown(pageKind);
+      const scan = applyStructural(root, context, "structural-high-confidence");
+      applyCreatorPaths(root, context);
       if (
         scan.observedMediaGroups > 0 &&
         blocker?.totalBlocked === 0 &&
@@ -133,6 +149,7 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
       }
     } else {
       applyGeneric(root);
+      applyCreatorPaths(root, genericContext);
     }
     publish({
       state: status.state,
@@ -145,6 +162,7 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
 
   const initialize = () => {
     blocker?.restoreAll();
+    linkNeutralizer.restoreAll();
     protection.clear();
     autoAdvance.dispose();
     autoAdvance = new AutoAdvanceController(options.page);
@@ -161,6 +179,7 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
     if (!adapter) {
       blocker = new Blocker("generic", options.page, protection);
       applyGeneric(options.page);
+      applyCreatorPaths(options.page, genericContext);
       publish({
         state: genericContext.pageKind === "restricted" ? "restricted" : "active-generic",
         pageKind: genericContext.pageKind,
@@ -186,11 +205,13 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
     registerKnownProtection(adapter, pageKind);
     const result = blocker.applyRules(options.page, exactRules(adapter, pageKind));
     let degraded = classification.degraded || result.errors.length > 0;
+    const structuralContext = structuralContextForKnown(pageKind);
     const structuralScan = applyStructural(
       options.page,
-      structuralContextForKnown(pageKind),
+      structuralContext,
       "structural-high-confidence"
     );
+    applyCreatorPaths(options.page, structuralContext);
     if (options.page.readyState !== "loading") {
       for (const check of adapter.healthChecks[pageKind] ?? []) {
         if (check.required && !options.page.querySelector(check.selector)) degraded = true;
@@ -238,6 +259,7 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
       route?.stop();
       autoAdvance.dispose();
       blocker?.restoreAll();
+      linkNeutralizer.restoreAll();
       if (domReadyListener) options.page.removeEventListener("DOMContentLoaded", domReadyListener);
       started = false;
     },

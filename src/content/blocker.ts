@@ -78,7 +78,8 @@ export class Blocker {
     if (this.page.getElementById("afb-hide-style")) return;
     const style = this.page.createElement("style");
     style.id = "afb-hide-style";
-    style.textContent = "[data-afb-hidden]{display:none!important}";
+    style.textContent =
+      "[data-afb-hidden]{display:none!important}[data-afb-link-neutralized]{pointer-events:none!important;cursor:default!important}";
     (this.page.head ?? this.page.documentElement).append(style);
   }
 
