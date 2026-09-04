@@ -1,0 +1,135 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: #f5f3ed;
+  color: #171b19;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 336px;
+  background: radial-gradient(circle at 100% 0%, rgba(62, 105, 86, 0.16), transparent 48%), #f5f3ed;
+}
+
+main {
+  padding: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #3e6956;
+  border-radius: 50%;
+  color: #315343;
+  font-size: 20px;
+}
+
+.brand-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.state {
+  border: 1px solid rgba(23, 27, 25, 0.12);
+  border-radius: 16px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 35px rgba(30, 40, 35, 0.08);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #5c665f;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.state-title {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 25px;
+  line-height: 1.08;
+}
+.state-detail {
+  margin: 10px 0 0;
+  color: #59605c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.count {
+  margin: 16px 0 0;
+  color: #315343;
+  font-size: 12px;
+  font-weight: 700;
+}
+.controls {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+button,
+.settings-link {
+  min-height: 42px;
+  border-radius: 11px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+button {
+  cursor: pointer;
+}
+.primary {
+  border: 0;
+  background: #315343;
+  color: white;
+  padding: 0 15px;
+}
+.primary:hover {
+  background: #233f32;
+}
+.primary:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+.settings-link {
+  display: grid;
+  place-items: center;
+  color: #315343;
+  text-decoration: none;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #e09b3d;
+  outline-offset: 2px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}

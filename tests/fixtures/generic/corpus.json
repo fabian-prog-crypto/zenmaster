@@ -1,0 +1,602 @@
+[
+  {
+    "id": "case-001",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-002",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-003",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-004",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-005",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-006",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-007",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-008",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-009",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-010",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-011",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-012",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-013",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-014",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-015",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-016",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-017",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-018",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-019",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-020",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-021",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-022",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-023",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-024",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-025",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-026",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-027",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-028",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-029",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-030",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-031",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-032",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-033",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-034",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-035",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-036",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-037",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-038",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-039",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-040",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-041",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-042",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-043",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-044",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-045",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-046",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-047",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-048",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-049",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-050",
+    "expected": "hide",
+    "pageKind": "unknown",
+    "html": "<section aria-label=\"Recommended\"><h2>Recommended</h2><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></section>"
+  },
+  {
+    "id": "case-051",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-052",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-053",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-054",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-055",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-056",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-057",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-058",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-059",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-060",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-061",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-062",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-063",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-064",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-065",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-066",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-067",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-068",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-069",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-070",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-071",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-072",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-073",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-074",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-075",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-076",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-077",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-078",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-079",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-080",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-081",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-082",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-083",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-084",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-085",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-086",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-087",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-088",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-089",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-090",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-091",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-092",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-093",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-094",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-095",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-096",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-097",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-098",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-099",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  },
+  {
+    "id": "case-100",
+    "expected": "preserve",
+    "pageKind": "search",
+    "html": "<form role=\"search\"><input type=\"search\"></form><main class=\"search-results\" aria-label=\"Search results\"><a href=\"/video/1\"></a><a href=\"/video/2\"></a><a href=\"/video/3\"></a><a href=\"/video/4\"></a></main>"
+  }
+]

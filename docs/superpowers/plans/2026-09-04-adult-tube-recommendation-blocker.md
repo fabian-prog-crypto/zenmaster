@@ -1,4 +1,4 @@
-# Adult Tube Recommendation Blocker Implementation Plan
+# Zen Master Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -107,6 +107,7 @@
 ### Task 1: Bootstrap the strict TypeScript test toolchain and launch catalog
 
 **Files:**
+
 - Create: `package.json`
 - Create: `package-lock.json`
 - Create: `tsconfig.json`
@@ -119,6 +120,7 @@
 - Test: `tests/unit/catalog.test.ts`
 
 **Interfaces:**
+
 - Consumes: Section 6 of the approved spec.
 - Produces: `RULESET_VERSION`, the canonical 50-entry JSON catalog, and working `typecheck`, `lint`, `format:check`, and `test:unit` commands.
 
@@ -165,14 +167,55 @@ import catalog from "../../src/adapters/catalog.json" with { type: "json" };
 import { RULESET_VERSION } from "../../src/adapters/ruleset-version.js";
 
 const expectedIds = [
-  "pornhub", "xvideos", "xnxx", "xhamster", "youporn", "redtube", "tube8",
-  "spankbang", "txxx", "eporner", "noodlemagazine", "mat6tube", "tukif",
-  "hclips", "hqporner", "porntrex", "upornia", "beeg", "thumbzilla",
-  "pornone", "xgroovy", "heavyfetish", "pornditt", "pornzog", "hdzog",
-  "thegay", "ooxxx", "hotmovs", "vjav", "pornl", "voyeurhit", "manysex",
-  "tubepornclassic", "shemalez", "fourkporn", "crazyporn", "love4porn",
-  "hoes", "motherless", "theyarehuge", "trannyone", "ahme", "ashemale",
-  "bdsmone", "bemyhole", "gaygo", "gayxo", "shemalepub", "sunporno",
+  "pornhub",
+  "xvideos",
+  "xnxx",
+  "xhamster",
+  "youporn",
+  "redtube",
+  "tube8",
+  "spankbang",
+  "txxx",
+  "eporner",
+  "noodlemagazine",
+  "mat6tube",
+  "tukif",
+  "hclips",
+  "hqporner",
+  "porntrex",
+  "upornia",
+  "beeg",
+  "thumbzilla",
+  "pornone",
+  "xgroovy",
+  "heavyfetish",
+  "pornditt",
+  "pornzog",
+  "hdzog",
+  "thegay",
+  "ooxxx",
+  "hotmovs",
+  "vjav",
+  "pornl",
+  "voyeurhit",
+  "manysex",
+  "tubepornclassic",
+  "shemalez",
+  "fourkporn",
+  "crazyporn",
+  "love4porn",
+  "hoes",
+  "motherless",
+  "theyarehuge",
+  "trannyone",
+  "ahme",
+  "ashemale",
+  "bdsmone",
+  "bemyhole",
+  "gaygo",
+  "gayxo",
+  "shemalepub",
+  "sunporno",
   "yesvids"
 ] as const;
 
@@ -229,6 +272,7 @@ git commit -m "chore: bootstrap extension toolchain and catalog"
 ### Task 2: Generate a deterministic Manifest V3 extension build
 
 **Files:**
+
 - Create: `src/manifest.base.json`
 - Create: `scripts/build.mjs`
 - Create: `src/background/service-worker.ts`
@@ -243,6 +287,7 @@ git commit -m "chore: bootstrap extension toolchain and catalog"
 - Test: `tests/unit/build.test.ts`
 
 **Interfaces:**
+
 - Consumes: `src/adapters/catalog.json`.
 - Produces: `dist/manifest.json` and fixed bundle paths used by content-script registration.
 
@@ -258,7 +303,10 @@ expect(manifest.host_permissions).not.toContain("<all_urls>");
 expect(manifest.host_permissions).toContain("https://pornhub.com/*");
 expect(manifest.host_permissions).toContain("https://www.pornhub.com/*");
 expect(manifest.host_permissions).toContain("https://txxx.tube/*");
-expect(manifest.background).toEqual({ service_worker: "background/service-worker.js", type: "module" });
+expect(manifest.background).toEqual({
+  service_worker: "background/service-worker.js",
+  type: "module"
+});
 ```
 
 - [ ] **Step 2: Confirm the build is red**
@@ -307,6 +355,7 @@ git commit -m "build: generate deterministic manifest v3 extension"
 ### Task 3: Define page, status, message, storage, and custom-origin contracts
 
 **Files:**
+
 - Create: `src/shared/page-kind.ts`
 - Create: `src/shared/status.ts`
 - Create: `src/shared/messages.ts`
@@ -315,6 +364,7 @@ git commit -m "build: generate deterministic manifest v3 extension"
 - Test: `tests/unit/messages.test.ts`
 
 **Interfaces:**
+
 - Produces: `PageKind`, `PageStatus`, `StoredStateV1`, `parseStoredState`, `normalizeCustomSite`, `parseMessage`.
 
 - [ ] **Step 1: Write red tests for schema defaults and origin normalization**
@@ -328,7 +378,9 @@ expect(normalizeCustomSite("HTTPS://WWW.Example.COM/watch?q=secret#x")).toEqual(
   originPattern: "https://www.example.com/*"
 });
 expect(() => normalizeCustomSite("chrome://extensions")).toThrow("Unsupported URL scheme");
-expect(() => normalizeCustomSite("https://user:pass@example.com/")).toThrow("Credentials are not allowed");
+expect(() => normalizeCustomSite("https://user:pass@example.com/")).toThrow(
+  "Credentials are not allowed"
+);
 ```
 
 - [ ] **Step 2: Confirm failures**
@@ -367,12 +419,14 @@ git commit -m "feat: define extension state and message contracts"
 ### Task 4: Implement the immutable adapter contract and hostname registry
 
 **Files:**
+
 - Create: `src/adapters/types.ts`
 - Create: `src/adapters/define-adapter.ts`
 - Create: `src/adapters/registry.ts`
 - Test: `tests/unit/adapter-registry.test.ts`
 
 **Interfaces:**
+
 - Consumes: `PageKind`, catalog IDs/hostnames.
 - Produces: `CatalogEntry`, `defineAdapter(input): SiteAdapter`, `createAdapterRegistry(adapters): AdapterRegistry`.
 
@@ -416,10 +470,12 @@ git commit -m "feat: add validated adapter registry"
 ### Task 5: Implement page classification with protected precedence
 
 **Files:**
+
 - Create: `src/content/classifier.ts`
 - Test: `tests/unit/classifier.test.ts`
 
 **Interfaces:**
+
 - Consumes: `SiteAdapter.classify(context)` and `PageKind`.
 - Produces: `classifyPage(adapter, url, document): ClassificationResult`.
 
@@ -451,11 +507,13 @@ git commit -m "feat: classify pages with safe precedence"
 ### Task 6: Build protected roots and reversible blocking
 
 **Files:**
+
 - Create: `src/content/protection-registry.ts`
 - Create: `src/content/blocker.ts`
 - Test: `tests/unit/blocker.test.ts`
 
 **Interfaces:**
+
 - Produces: `ProtectionRegistry`, `Blocker.applyRules`, `Blocker.restoreAll`, `BlockResult`.
 
 - [ ] **Step 1: Write failing DOM tests**
@@ -477,7 +535,9 @@ Use a `Set<Element>` with `register`, `clear`, and `intersects(candidate)` metho
 Install one stylesheet with:
 
 ```css
-[data-afb-hidden] { display: none !important; }
+[data-afb-hidden] {
+  display: none !important;
+}
 ```
 
 Apply stable values `<adapter-id>:<rule-id>`, deduplicate matches, cap parent traversal at the rule's validated fixed maximum, catch selector failures per rule, and return `{ newlyBlocked, totalBlocked, errors }` without throwing into the host page.
@@ -496,6 +556,7 @@ git commit -m "feat: hide recommendation roots reversibly"
 ### Task 7: Add batched mutation processing and SPA route lifecycle
 
 **Files:**
+
 - Create: `src/content/mutation-controller.ts`
 - Create: `src/content/route-controller.ts`
 - Replace: `src/content/route-bridge.ts`
@@ -503,6 +564,7 @@ git commit -m "feat: hide recommendation roots reversibly"
 - Test: `tests/unit/route-controller.test.ts`
 
 **Interfaces:**
+
 - Consumes: `Blocker.applyRules`, `Blocker.restoreAll`, page reinitializer callback.
 - Produces: `MutationController.start/stop`, `RouteController.start/stop`, event `afb:route-change`.
 
@@ -542,10 +604,12 @@ git commit -m "feat: handle dynamic content and spa routes"
 ### Task 8: Implement the conservative generic detector
 
 **Files:**
+
 - Create: `src/content/generic-detector.ts`
 - Test: `tests/unit/generic-detector.test.ts`
 
 **Interfaces:**
+
 - Consumes: `PageKind`, `ProtectionRegistry`.
 - Produces: `classifyGenericPage(url, document): GenericPageContext`, `registerGenericProtectedRoots(document, context, registry)`, `scoreCandidate(candidate, context): CandidateScore`, `detectGeneric(root, context): RuleMatch[]`.
 
@@ -616,10 +680,12 @@ git commit -m "feat: detect high-confidence recommendation containers"
 ### Task 9: Implement safe auto-advance prevention
 
 **Files:**
+
 - Create: `src/content/auto-advance.ts`
 - Test: `tests/unit/auto-advance.test.ts`
 
 **Interfaces:**
+
 - Consumes: `AutoAdvanceRule` from adapter types.
 - Produces: `AutoAdvanceController.apply(rule, context): AutoAdvanceResult`, `dispose()`.
 
@@ -651,10 +717,12 @@ git commit -m "feat: prevent confirmed video auto-advance"
 ### Task 10: Compose the content kernel and ephemeral status endpoint
 
 **Files:**
+
 - Replace: `src/content/bootstrap.ts`
 - Test: `tests/unit/bootstrap.test.ts`
 
 **Interfaces:**
+
 - Consumes: registry, classifier, protection registry, blocker, generic detector, mutation/route controllers, auto-advance controller, messages/status.
 - Produces: `createContentKernel(dependencies)`, live `GET_PAGE_STATUS` response.
 
@@ -688,12 +756,14 @@ git commit -m "feat: compose the page protection kernel"
 ### Task 11: Implement the Chrome API facade and deterministic registration IDs
 
 **Files:**
+
 - Create: `src/background/chrome-api.ts`
 - Create: `src/background/registration-ids.ts`
 - Create: `tests/helpers/chrome-fake.ts`
 - Test: `tests/unit/registration-ids.test.ts`
 
 **Interfaces:**
+
 - Produces: `ChromeApi`, `createChromeApi()`, `createChromeFake()`, `registrationIdsForOrigin(pattern): Promise<RegistrationIds>`.
 
 - [ ] **Step 1: Write failing facade/ID tests**
@@ -724,6 +794,7 @@ git commit -m "feat: isolate chrome extension APIs"
 ### Task 12: Implement permission and content-script registration lifecycle
 
 **Files:**
+
 - Create: `src/background/permissions.ts`
 - Create: `src/background/registrations.ts`
 - Replace: `src/background/service-worker.ts`
@@ -731,6 +802,7 @@ git commit -m "feat: isolate chrome extension APIs"
 - Test: `tests/unit/registrations.test.ts`
 
 **Interfaces:**
+
 - Consumes: catalog, storage, message contracts, ChromeApi, registration IDs.
 - Produces: `addCustomSite`, `removeCustomSite`, `reconcileRegistrations`, service-worker request handler.
 
@@ -770,6 +842,7 @@ git commit -m "feat: manage exact-origin protection lifecycle"
 ### Task 13: Build accessible popup and Settings interfaces
 
 **Files:**
+
 - Replace: `src/popup/index.html`
 - Replace: `src/popup/popup.ts`
 - Replace: `src/popup/popup.css`
@@ -780,6 +853,7 @@ git commit -m "feat: manage exact-origin protection lifecycle"
 - Test: `tests/unit/settings.test.ts`
 
 **Interfaces:**
+
 - Consumes: versioned messages, `PageStatus`, catalog/settings responses, `RULESET_VERSION`.
 - Produces: six popup states, add-site action, built-in catalog display, custom-site removal.
 
@@ -819,6 +893,7 @@ git commit -m "feat: add strict popup and site settings"
 ### Task 14: Build sanitized fixture capture, validation, and adapter contract tooling
 
 **Files:**
+
 - Create: `scripts/capture-fixture.mjs`
 - Create: `scripts/sanitize-fixture.mjs`
 - Create: `scripts/validate-fixtures.mjs`
@@ -829,6 +904,7 @@ git commit -m "feat: add strict popup and site settings"
 - Modify: `package.json`
 
 **Interfaces:**
+
 - Produces: `sanitizeFixture(html, metadata)`, `loadFixture`, `assertAdapterContract(adapterId)`, fixture CLI scripts.
 
 - [ ] **Step 1: Write red sanitizer tests**
@@ -876,6 +952,7 @@ git commit -m "test: add sanitized adapter fixture harness"
 ### Task 15: Implement the Aylo adapter family
 
 **Files:**
+
 - Create: `src/adapters/families/aylo.ts`
 - Create: `src/adapters/sites/pornhub.ts`
 - Create: `src/adapters/sites/youporn.ts`
@@ -887,6 +964,7 @@ git commit -m "test: add sanitized adapter fixture harness"
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Consumes: `defineAdapter`, adapter contract harness, sanitized fixtures.
 - Produces: five registered, independently versioned launch adapters.
 
@@ -897,9 +975,8 @@ For each adapter, capture at least home, blocked-listing, watch, and search stru
 - [ ] **Step 2: Write the failing family contract test**
 
 ```ts
-describe.each(["pornhub", "youporn", "redtube", "tube8", "thumbzilla"])(
-  "%s adapter",
-  (adapterId) => assertAdapterContract(adapterId)
+describe.each(["pornhub", "youporn", "redtube", "tube8", "thumbzilla"])("%s adapter", (adapterId) =>
+  assertAdapterContract(adapterId)
 );
 ```
 
@@ -927,6 +1004,7 @@ git commit -m "feat: support aylo tube platforms"
 ### Task 16: Implement the WGCZ adapter family
 
 **Files:**
+
 - Create: `src/adapters/families/wgcz.ts`
 - Create: `src/adapters/sites/xvideos.ts`
 - Create: `src/adapters/sites/xnxx.ts`
@@ -935,6 +1013,7 @@ git commit -m "feat: support aylo tube platforms"
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: XVideos and XNXX adapters with protected search/player roots and SPA-safe hiding.
 
 - [ ] **Step 1: Capture, sanitize, and annotate eight baseline fixtures**
@@ -965,6 +1044,7 @@ git commit -m "feat: support wgcz tube platforms"
 ### Task 17: Implement AVS adapters for Txxx, HClips, Upornia, PornDitt, and PornZog
 
 **Files:**
+
 - Create: `src/adapters/families/avs.ts`
 - Create: `src/adapters/sites/{txxx,hclips,upornia,pornditt,pornzog}.ts`
 - Create: `tests/fixtures/{txxx,hclips,upornia,pornditt,pornzog}/`
@@ -972,6 +1052,7 @@ git commit -m "feat: support wgcz tube platforms"
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: AVS family foundation and five adapters; Txxx covers both `txxx.com` and `txxx.tube`.
 
 - [ ] **Step 1: Capture and annotate at least 20 sanitized fixtures**
@@ -1002,6 +1083,7 @@ git commit -m "feat: add core avs adapters"
 ### Task 18: Implement AVS adapters for HDZog, TheGay, OOXXX, HotMovs, and VJav
 
 **Files:**
+
 - Create: `src/adapters/sites/{hdzog,thegay,ooxxx,hotmovs,vjav}.ts`
 - Create: `tests/fixtures/{hdzog,thegay,ooxxx,hotmovs,vjav}/`
 - Create: `tests/adapters/avs-second.test.ts`
@@ -1009,6 +1091,7 @@ git commit -m "feat: add core avs adapters"
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: five more AVS adapters; HDZog and TheGay include their `.tube` aliases.
 
 - [ ] **Step 1: Capture and annotate at least 20 sanitized fixtures**
@@ -1039,6 +1122,7 @@ git commit -m "feat: expand avs adapter coverage"
 ### Task 19: Complete AVS adapters for PornL, VoyeurHit, ManySex, TubePornClassic, and ShemaleZ
 
 **Files:**
+
 - Create: `src/adapters/sites/{pornl,voyeurhit,manysex,tubepornclassic,shemalez}.ts`
 - Create: `tests/fixtures/{pornl,voyeurhit,manysex,tubepornclassic,shemalez}/`
 - Create: `tests/adapters/avs-final.test.ts`
@@ -1046,6 +1130,7 @@ git commit -m "feat: expand avs adapter coverage"
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: the final five AVS adapters; ShemaleZ includes `shemalez.tube`.
 
 - [ ] **Step 1: Capture and annotate at least 20 sanitized fixtures**
@@ -1076,6 +1161,7 @@ git commit -m "feat: complete avs adapter family"
 ### Task 20: Implement the 8579 adapter family
 
 **Files:**
+
 - Create: `src/adapters/families/f8579.ts`
 - Create: `src/adapters/sites/{fourkporn,crazyporn,love4porn,hoes}.ts`
 - Create: `tests/fixtures/{fourkporn,crazyporn,love4porn,hoes}/`
@@ -1083,6 +1169,7 @@ git commit -m "feat: complete avs adapter family"
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: adapters for `4kporn.xxx`, `crazyporn.xxx`, `love4porn.com`, and `hoes.tube`.
 
 - [ ] **Step 1: Capture and annotate at least 16 sanitized fixtures**
@@ -1113,6 +1200,7 @@ git commit -m "feat: support 8579 tube platforms"
 ### Task 21: Implement first-half Trendio adapters
 
 **Files:**
+
 - Create: `src/adapters/families/trendio.ts`
 - Create: `src/adapters/sites/{theyarehuge,trannyone,ahme,ashemale,bdsmone,bemyhole}.ts`
 - Create: `tests/fixtures/{theyarehuge,trannyone,ahme,ashemale,bdsmone,bemyhole}/`
@@ -1120,6 +1208,7 @@ git commit -m "feat: support 8579 tube platforms"
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: six registered Trendio adapters.
 
 - [ ] **Step 1: Capture and annotate at least 24 sanitized fixtures**
@@ -1150,6 +1239,7 @@ git commit -m "feat: add initial trendio adapters"
 ### Task 22: Complete Trendio adapters
 
 **Files:**
+
 - Create: `src/adapters/sites/{gaygo,gayxo,shemalepub,sunporno,yesvids}.ts`
 - Create: `tests/fixtures/{gaygo,gayxo,shemalepub,sunporno,yesvids}/`
 - Create: `tests/adapters/trendio-final.test.ts`
@@ -1157,6 +1247,7 @@ git commit -m "feat: add initial trendio adapters"
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: five more adapters and a complete 11-site Trendio family.
 
 - [ ] **Step 1: Capture and annotate at least 20 sanitized fixtures**
@@ -1187,12 +1278,14 @@ git commit -m "feat: complete trendio adapter family"
 ### Task 23: Implement standalone adapters for xHamster, SpankBang, Eporner, and NoodleMagazine
 
 **Files:**
+
 - Create: `src/adapters/sites/{xhamster,spankbang,eporner,noodlemagazine}.ts`
 - Create: `tests/fixtures/{xhamster,spankbang,eporner,noodlemagazine}/`
 - Create: `tests/adapters/standalone-first.test.ts`
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: four independently implemented standalone adapters.
 
 - [ ] **Step 1: Capture and annotate at least 16 sanitized fixtures**
@@ -1223,12 +1316,14 @@ git commit -m "feat: add first standalone adapter set"
 ### Task 24: Implement standalone adapters for Mat6Tube, TuKif, HQPorner, and PornTrex
 
 **Files:**
+
 - Create: `src/adapters/sites/{mat6tube,tukif,hqporner,porntrex}.ts`
 - Create: `tests/fixtures/{mat6tube,tukif,hqporner,porntrex}/`
 - Create: `tests/adapters/standalone-second.test.ts`
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: four independently versioned standalone adapters.
 
 - [ ] **Step 1: Capture and annotate at least 16 sanitized fixtures**
@@ -1259,12 +1354,14 @@ git commit -m "feat: add second standalone adapter set"
 ### Task 25: Complete standalone adapters for Beeg, PornOne, xGroovy, HeavyFetish, and Motherless
 
 **Files:**
+
 - Create: `src/adapters/sites/{beeg,pornone,xgroovy,heavyfetish,motherless}.ts`
 - Create: `tests/fixtures/{beeg,pornone,xgroovy,heavyfetish,motherless}/`
 - Create: `tests/adapters/standalone-final.test.ts`
 - Modify: `src/adapters/registry.ts`
 
 **Interfaces:**
+
 - Produces: the final five adapters and a registry containing all 50 catalog IDs.
 
 - [ ] **Step 1: Capture and annotate at least 20 sanitized fixtures**
@@ -1304,6 +1401,7 @@ git commit -m "feat: complete fifty-site adapter coverage"
 ### Task 26: Prove generic precision and performance budgets
 
 **Files:**
+
 - Create: `tests/fixtures/generic/`
 - Create: `tests/performance/generic-precision.test.ts`
 - Create: `tests/performance/initial-scan.test.ts`
@@ -1312,6 +1410,7 @@ git commit -m "feat: complete fifty-site adapter coverage"
 - Modify: `src/content/mutation-controller.ts`
 
 **Interfaces:**
+
 - Consumes: completed generic detector and content kernel.
 - Produces: measurable 95% precision, initial-scan, and mutation budgets.
 
@@ -1351,6 +1450,7 @@ git commit -m "perf: enforce detection and mutation budgets"
 ### Task 27: Add unpacked-extension end-to-end coverage
 
 **Files:**
+
 - Create: `playwright.config.ts`
 - Create: `tests/helpers/extension-context.ts`
 - Create: `tests/extension/known-site.spec.ts`
@@ -1360,6 +1460,7 @@ git commit -m "perf: enforce detection and mutation budgets"
 - Create: `tests/extension/accessibility.spec.ts`
 
 **Interfaces:**
+
 - Consumes: `dist/`, sanitized fixtures, popup/Settings, service worker.
 - Produces: browser verification of complete extension flows.
 
@@ -1401,13 +1502,15 @@ git commit -m "test: verify complete extension workflows"
 ### Task 28: Add package policy checks and deterministic ZIP output
 
 **Files:**
+
 - Create: `scripts/check-package.mjs`
 - Create: `scripts/package.mjs`
 - Test: `tests/unit/package-policy.test.ts`
 
 **Interfaces:**
+
 - Consumes: production build and catalog.
-- Produces: `artifacts/adult-feed-blocker-v0.1.0.zip` and a machine-enforced release policy.
+- Produces: `artifacts/zen-master-v0.1.0.zip` and a machine-enforced release policy.
 
 - [ ] **Step 1: Write red package-policy tests**
 
@@ -1439,6 +1542,7 @@ git commit -m "build: enforce extension package policy"
 ### Task 29: Document privacy, permissions, development, and manual release checks
 
 **Files:**
+
 - Create: `README.md`
 - Create: `PRIVACY.md`
 - Create: `CHANGELOG.md`
@@ -1446,6 +1550,7 @@ git commit -m "build: enforce extension package policy"
 - Test: `tests/unit/docs-policy.test.ts`
 
 **Interfaces:**
+
 - Consumes: finished behavior and catalog.
 - Produces: user/developer documentation and 50-row live-verification record.
 
@@ -1481,11 +1586,13 @@ git commit -m "docs: explain extension behavior and release checks"
 ### Task 30: Add CI and run the complete release gate
 
 **Files:**
+
 - Create: `.github/workflows/ci.yml`
 - Modify: `package.json`
 - Modify: `CHANGELOG.md`
 
 **Interfaces:**
+
 - Consumes: every previous task.
 - Produces: one reproducible `npm run verify` gate and CI artifact.
 

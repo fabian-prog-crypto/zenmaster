@@ -1,4 +1,4 @@
-# Adult Tube Recommendation Blocker — Product and Technical Design
+# Zen Master — Product and Technical Design
 
 **Status:** Approved for implementation planning
 
@@ -6,11 +6,11 @@
 
 **Target:** Google Chrome desktop, Manifest V3
 
-**Working name:** Adult Feed Blocker
+**Product name:** Zen Master 🧘
 
 ## 1. Summary
 
-Adult Feed Blocker is a privacy-first Chrome extension that removes passive discovery surfaces from adult tube sites while preserving intentional access. Users may search for a video, open a direct video URL, or use their own saved library. They do not see home feeds, category listings, performer listings, related videos, trending sections, autoplay-next prompts, or end-of-video recommendations.
+Zen Master is a privacy-first Chrome extension that starts in always-on zen mode and removes passive discovery surfaces from adult tube sites while preserving intentional access. Users may search for a video, open a direct video URL, or use their own saved library. They do not see home feeds, category listings, performer listings, related videos, trending sections, autoplay-next prompts, or end-of-video recommendations.
 
 Version 1 ships with dedicated adapters for 50 Europe-relevant adult tube platforms. A toolbar action, **Block recommendations on this site**, lets a user grant access to an additional hostname and activate a conservative generic detector there. The extension provides no quick reveal, pause, or per-site disable control. A manually added hostname can be removed only from the extension Settings page.
 
@@ -80,15 +80,15 @@ The precedence prevents a URL containing a category-like token inside a search o
 
 ### 5.2 Behavior matrix
 
-| Page class | Primary content | Secondary recommendations | Auto-advance |
-|---|---|---|---|
-| `restricted` | Preserve | Preserve | Do not intervene |
-| `search` | Preserve search form and results | Hide only adapter-confirmed recommendation modules | Block if present |
-| `library` | Preserve user-owned lists | Hide adapter-confirmed recommendation modules | Block if present |
-| `watch` | Preserve selected player, title, and essential controls | Hide all recommendation modules | Block |
-| `blocked-listing` | Hide the discovery listing | Hide | Block |
-| `home` | Hide the discovery feed | Hide | Block |
-| `unknown` | Preserve | Apply only high-confidence site or generic rules | Block only through a confirmed control |
+| Page class        | Primary content                                         | Secondary recommendations                          | Auto-advance                           |
+| ----------------- | ------------------------------------------------------- | -------------------------------------------------- | -------------------------------------- |
+| `restricted`      | Preserve                                                | Preserve                                           | Do not intervene                       |
+| `search`          | Preserve search form and results                        | Hide only adapter-confirmed recommendation modules | Block if present                       |
+| `library`         | Preserve user-owned lists                               | Hide adapter-confirmed recommendation modules      | Block if present                       |
+| `watch`           | Preserve selected player, title, and essential controls | Hide all recommendation modules                    | Block                                  |
+| `blocked-listing` | Hide the discovery listing                              | Hide                                               | Block                                  |
+| `home`            | Hide the discovery feed                                 | Hide                                               | Block                                  |
+| `unknown`         | Preserve                                                | Apply only high-confidence site or generic rules   | Block only through a confirmed control |
 
 Direct-video autoplay remains under the site's normal behavior. The extension blocks only automatic transition to a different video.
 
@@ -116,58 +116,58 @@ Direct-video autoplay remains under the site's normal behavior. The extension bl
 
 The launch requirement is 50 platform adapters. This is a coverage set, not a claim that the entries are precisely Europe's 50 highest-traffic sites. Brand names that may be dated or offensive are recorded only because they are the operators' exact site names and are required for unambiguous adapter identification.
 
-| # | Adapter ID | Platform | Primary hostname |
-|---:|---|---|---|
-| 1 | `pornhub` | Pornhub | `pornhub.com` |
-| 2 | `xvideos` | XVideos | `xvideos.com` |
-| 3 | `xnxx` | XNXX | `xnxx.com` |
-| 4 | `xhamster` | xHamster | `xhamster.com` |
-| 5 | `youporn` | YouPorn | `youporn.com` |
-| 6 | `redtube` | RedTube | `redtube.com` |
-| 7 | `tube8` | Tube8 | `tube8.com` |
-| 8 | `spankbang` | SpankBang | `spankbang.com` |
-| 9 | `txxx` | Txxx | `txxx.com` |
-| 10 | `eporner` | Eporner | `eporner.com` |
-| 11 | `noodlemagazine` | NoodleMagazine | `noodlemagazine.com` |
-| 12 | `mat6tube` | Mat6Tube | `mat6tube.com` |
-| 13 | `tukif` | TuKif | `tukif.com` |
-| 14 | `hclips` | HClips | `hclips.com` |
-| 15 | `hqporner` | HQPorner | `hqporner.com` |
-| 16 | `porntrex` | PornTrex | `porntrex.com` |
-| 17 | `upornia` | Upornia | `upornia.com` |
-| 18 | `beeg` | Beeg | `beeg.com` |
-| 19 | `thumbzilla` | Thumbzilla | `thumbzilla.com` |
-| 20 | `pornone` | PornOne | `pornone.com` |
-| 21 | `xgroovy` | xGroovy | `xgroovy.com` |
-| 22 | `heavyfetish` | HeavyFetish | `heavyfetish.com` |
-| 23 | `pornditt` | PornDitt | `pornditt.com` |
-| 24 | `pornzog` | PornZog | `pornzog.com` |
-| 25 | `hdzog` | HDZog | `hdzog.com` |
-| 26 | `thegay` | TheGay | `thegay.com` |
-| 27 | `ooxxx` | OOXXX | `ooxxx.com` |
-| 28 | `hotmovs` | HotMovs | `hotmovs.com` |
-| 29 | `vjav` | VJav | `vjav.com` |
-| 30 | `pornl` | PornL | `pornl.com` |
-| 31 | `voyeurhit` | VoyeurHit | `voyeurhit.com` |
-| 32 | `manysex` | ManySex | `manysex.com` |
-| 33 | `tubepornclassic` | TubePornClassic | `tubepornclassic.com` |
-| 34 | `shemalez` | ShemaleZ | `shemalez.com` |
-| 35 | `fourkporn` | 4K Porn | `4kporn.xxx` |
-| 36 | `crazyporn` | CrazyPorn | `crazyporn.xxx` |
-| 37 | `love4porn` | Love4Porn | `love4porn.com` |
-| 38 | `hoes` | Hoes | `hoes.tube` |
-| 39 | `motherless` | Motherless | `motherless.com` |
-| 40 | `theyarehuge` | TheyAreHuge | `theyarehuge.com` |
-| 41 | `trannyone` | Tranny One | `tranny.one` |
-| 42 | `ahme` | AH-ME | `ah-me.com` |
-| 43 | `ashemale` | AShemale | `ashemale.one` |
-| 44 | `bdsmone` | BDSM One | `bdsm.one` |
-| 45 | `bemyhole` | BeMyHole | `bemyhole.com` |
-| 46 | `gaygo` | GayGo | `gaygo.tv` |
-| 47 | `gayxo` | GayXO | `gayxo.com` |
-| 48 | `shemalepub` | Shemale Pub | `shemale.pub` |
-| 49 | `sunporno` | SunPorno | `sunporno.com` |
-| 50 | `yesvids` | YesVids | `yesvids.com` |
+|   # | Adapter ID        | Platform        | Primary hostname      |
+| --: | ----------------- | --------------- | --------------------- |
+|   1 | `pornhub`         | Pornhub         | `pornhub.com`         |
+|   2 | `xvideos`         | XVideos         | `xvideos.com`         |
+|   3 | `xnxx`            | XNXX            | `xnxx.com`            |
+|   4 | `xhamster`        | xHamster        | `xhamster.com`        |
+|   5 | `youporn`         | YouPorn         | `youporn.com`         |
+|   6 | `redtube`         | RedTube         | `redtube.com`         |
+|   7 | `tube8`           | Tube8           | `tube8.com`           |
+|   8 | `spankbang`       | SpankBang       | `spankbang.com`       |
+|   9 | `txxx`            | Txxx            | `txxx.com`            |
+|  10 | `eporner`         | Eporner         | `eporner.com`         |
+|  11 | `noodlemagazine`  | NoodleMagazine  | `noodlemagazine.com`  |
+|  12 | `mat6tube`        | Mat6Tube        | `mat6tube.com`        |
+|  13 | `tukif`           | TuKif           | `tukif.com`           |
+|  14 | `hclips`          | HClips          | `hclips.com`          |
+|  15 | `hqporner`        | HQPorner        | `hqporner.com`        |
+|  16 | `porntrex`        | PornTrex        | `porntrex.com`        |
+|  17 | `upornia`         | Upornia         | `upornia.com`         |
+|  18 | `beeg`            | Beeg            | `beeg.com`            |
+|  19 | `thumbzilla`      | Thumbzilla      | `thumbzilla.com`      |
+|  20 | `pornone`         | PornOne         | `pornone.com`         |
+|  21 | `xgroovy`         | xGroovy         | `xgroovy.com`         |
+|  22 | `heavyfetish`     | HeavyFetish     | `heavyfetish.com`     |
+|  23 | `pornditt`        | PornDitt        | `pornditt.com`        |
+|  24 | `pornzog`         | PornZog         | `pornzog.com`         |
+|  25 | `hdzog`           | HDZog           | `hdzog.com`           |
+|  26 | `thegay`          | TheGay          | `thegay.com`          |
+|  27 | `ooxxx`           | OOXXX           | `ooxxx.com`           |
+|  28 | `hotmovs`         | HotMovs         | `hotmovs.com`         |
+|  29 | `vjav`            | VJav            | `vjav.com`            |
+|  30 | `pornl`           | PornL           | `pornl.com`           |
+|  31 | `voyeurhit`       | VoyeurHit       | `voyeurhit.com`       |
+|  32 | `manysex`         | ManySex         | `manysex.com`         |
+|  33 | `tubepornclassic` | TubePornClassic | `tubepornclassic.com` |
+|  34 | `shemalez`        | ShemaleZ        | `shemalez.com`        |
+|  35 | `fourkporn`       | 4K Porn         | `4kporn.xxx`          |
+|  36 | `crazyporn`       | CrazyPorn       | `crazyporn.xxx`       |
+|  37 | `love4porn`       | Love4Porn       | `love4porn.com`       |
+|  38 | `hoes`            | Hoes            | `hoes.tube`           |
+|  39 | `motherless`      | Motherless      | `motherless.com`      |
+|  40 | `theyarehuge`     | TheyAreHuge     | `theyarehuge.com`     |
+|  41 | `trannyone`       | Tranny One      | `tranny.one`          |
+|  42 | `ahme`            | AH-ME           | `ah-me.com`           |
+|  43 | `ashemale`        | AShemale        | `ashemale.one`        |
+|  44 | `bdsmone`         | BDSM One        | `bdsm.one`            |
+|  45 | `bemyhole`        | BeMyHole        | `bemyhole.com`        |
+|  46 | `gaygo`           | GayGo           | `gaygo.tv`            |
+|  47 | `gayxo`           | GayXO           | `gayxo.com`           |
+|  48 | `shemalepub`      | Shemale Pub     | `shemale.pub`         |
+|  49 | `sunporno`        | SunPorno        | `sunporno.com`        |
+|  50 | `yesvids`         | YesVids         | `yesvids.com`         |
 
 The following alternate hostnames are included in their corresponding adapter and do not count as separate platforms:
 
@@ -252,13 +252,7 @@ The TypeScript contract is conceptually:
 
 ```ts
 type PageKind =
-  | "restricted"
-  | "search"
-  | "library"
-  | "watch"
-  | "blocked-listing"
-  | "home"
-  | "unknown";
+  "restricted" | "search" | "library" | "watch" | "blocked-listing" | "home" | "unknown";
 
 interface SiteAdapter {
   id: string;
@@ -317,16 +311,16 @@ The generic detector runs only on:
 
 It generates candidates from semantic sections, complementary regions, labeled containers, and repeated card groups. The default score is:
 
-| Signal | Score |
-|---|---:|
-| Recommendation keyword in heading, `aria-label`, ID, or class token | +4 |
-| Blocked-listing route token or heading | +4 |
-| At least three distinct video-like links adjacent to or below a primary player | +3 |
-| Repeated card signature with at least four items | +2 |
-| `aside` or `role="complementary"` near a player | +2 |
-| Contains or ancestors a protected player/search root | Reject |
-| Inside a search-result root | Reject |
-| Inside account, legal, age, or checkout UI | Reject |
+| Signal                                                                         |  Score |
+| ------------------------------------------------------------------------------ | -----: |
+| Recommendation keyword in heading, `aria-label`, ID, or class token            |     +4 |
+| Blocked-listing route token or heading                                         |     +4 |
+| At least three distinct video-like links adjacent to or below a primary player |     +3 |
+| Repeated card signature with at least four items                               |     +2 |
+| `aside` or `role="complementary"` near a player                                |     +2 |
+| Contains or ancestors a protected player/search root                           | Reject |
+| Inside a search-result root                                                    | Reject |
+| Inside account, legal, age, or checkout UI                                     | Reject |
 
 A candidate is hidden at a score of 6 or higher. The lexicon covers English, German, French, Spanish, Italian, Dutch, and Portuguese equivalents of related, recommended, similar, popular, trending, recent, featured, and up next. The lexicon contains interface terms only; it does not inspect titles or infer sexual content.
 
@@ -608,18 +602,18 @@ An adapter is never silently removed. If a site closes, changes category, or bec
 
 ## 21. Key risks and mitigations
 
-| Risk | Mitigation |
-|---|---|
-| Frequent DOM changes across 50 sites | Adapter isolation, family reuse, health checks, and per-site fixtures |
-| Search results accidentally hidden | Page-class precedence, protected roots, conservative search behavior, zero-false-positive release gate |
-| Broad permission warning reduces trust | Explicit persistent host list, ungranted optional HTTP(S) capability, exact-origin runtime requests, and plain-language privacy copy |
-| Dynamic recommendations reappear | `document_start` rules, route bridge, and subtree-scoped mutation processing |
-| SPA navigation leaves stale hidden state | Attribute-based hiding followed by restore/reclassify/reapply |
-| Generic detector hides legitimate content | High threshold, protected contexts, 95% precision gate, best-effort positioning |
-| Site auto-advance mechanisms differ | Explicit adapter hook contract and per-site auto-advance fixtures |
-| Service worker suspension loses state | Persistent script registrations plus idempotent reconciliation |
-| Adult material enters the repository | Sanitized fixtures and package-content inspection |
-| Regional age/access law changes | No bypass behavior; fixture fallback and transparent live-verification notes |
+| Risk                                      | Mitigation                                                                                                                           |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Frequent DOM changes across 50 sites      | Adapter isolation, family reuse, health checks, and per-site fixtures                                                                |
+| Search results accidentally hidden        | Page-class precedence, protected roots, conservative search behavior, zero-false-positive release gate                               |
+| Broad permission warning reduces trust    | Explicit persistent host list, ungranted optional HTTP(S) capability, exact-origin runtime requests, and plain-language privacy copy |
+| Dynamic recommendations reappear          | `document_start` rules, route bridge, and subtree-scoped mutation processing                                                         |
+| SPA navigation leaves stale hidden state  | Attribute-based hiding followed by restore/reclassify/reapply                                                                        |
+| Generic detector hides legitimate content | High threshold, protected contexts, 95% precision gate, best-effort positioning                                                      |
+| Site auto-advance mechanisms differ       | Explicit adapter hook contract and per-site auto-advance fixtures                                                                    |
+| Service worker suspension loses state     | Persistent script registrations plus idempotent reconciliation                                                                       |
+| Adult material enters the repository      | Sanitized fixtures and package-content inspection                                                                                    |
+| Regional age/access law changes           | No bypass behavior; fixture fallback and transparent live-verification notes                                                         |
 
 ## 22. Delivery boundary
 

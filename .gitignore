@@ -1,0 +1,9 @@
+node_modules/
+dist/
+artifacts/
+coverage/
+playwright-report/
+test-results/
+.capture-scratch/
+.worktrees/
+.DS_Store

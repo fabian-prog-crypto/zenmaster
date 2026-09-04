@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Zen Master",
+  "description": "Zen mode hides passive recommendation feeds while preserving search and direct viewing.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "102",
+  "icons": {
+    "16": "icons/zen-master-16.png",
+    "32": "icons/zen-master-32.png",
+    "48": "icons/zen-master-48.png",
+    "128": "icons/zen-master-128.png"
+  },
+  "permissions": ["storage", "scripting", "activeTab"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "action": {
+    "default_title": "Zen Master",
+    "default_icon": {
+      "16": "icons/zen-master-16.png",
+      "32": "icons/zen-master-32.png",
+      "48": "icons/zen-master-48.png",
+      "128": "icons/zen-master-128.png"
+    },
+    "default_popup": "popup/index.html"
+  },
+  "options_ui": {
+    "page": "settings/index.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
