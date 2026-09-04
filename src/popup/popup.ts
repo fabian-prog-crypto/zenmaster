@@ -6,9 +6,9 @@ interface PopupActions {
 }
 
 const copy = {
-  "active-known": ["Zen mode is on", "Recommendations are hidden on this supported site."],
+  "active-known": ["Zen Master is active", "Recommendations are hidden on this supported site."],
   "active-generic": [
-    "Zen mode is on",
+    "Zen Master is active",
     "High-confidence recommendations are hidden with generic rules."
   ],
   "needs-update": [
@@ -38,7 +38,7 @@ export function renderPopup(root: Element, status: PageStatus, actions: PopupAct
     const count = make(
       "p",
       "count",
-      `${status.blockedCount} recommendation area${status.blockedCount === 1 ? "" : "s"} hidden`
+      `${status.blockedVideoCount} video recommendation${status.blockedVideoCount === 1 ? "" : "s"} hidden`
     );
     state.append(count);
   }

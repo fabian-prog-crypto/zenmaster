@@ -40,6 +40,14 @@ test("registers persistent built-in scripts and hides watch recommendations", as
   );
   await expect(page.locator(".video-player")).not.toHaveAttribute("data-afb-hidden", /.*/);
   await expect(page.locator("video")).toBeAttached();
+  await expect
+    .poll(() =>
+      extension!.worker.evaluate(async () => {
+        const [tab] = await chrome.tabs.query({ url: "https://pornhub.com/*" });
+        return tab?.id ? await chrome.action.getBadgeText({ tabId: tab.id }) : "";
+      })
+    )
+    .toBe("2");
 });
 
 test("preserves search results and renders all settings entries", async () => {

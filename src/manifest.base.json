@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Zen Master",
-  "description": "Zen mode hides passive recommendation feeds while preserving search and direct viewing.",
+  "description": "Zen Master hides passive recommendation feeds while preserving search and direct viewing.",
   "version": "0.1.0",
   "minimum_chrome_version": "102",
   "icons": {

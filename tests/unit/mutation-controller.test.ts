@@ -45,4 +45,21 @@ describe("mutation controller", () => {
     expect(processed).toHaveLength(2);
     controller.stop();
   });
+
+  it("reprocesses the parent when children are removed", async () => {
+    document.body.innerHTML = `<section><article></article></section>`;
+    const processed: Array<Document | Element | ShadowRoot> = [];
+    const controller = new MutationController(document, (root) => processed.push(root), {
+      requestFrame: (callback) => callback(0),
+      requestIdle: (callback) => callback({ didTimeout: false, timeRemaining: () => 10 }),
+      now: () => 0,
+      maxRoots: 100
+    });
+    controller.start();
+    const section = document.querySelector("section")!;
+    section.querySelector("article")!.remove();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(processed).toEqual([section]);
+    controller.stop();
+  });
 });

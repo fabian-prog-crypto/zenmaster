@@ -21,7 +21,7 @@ export function renderSettings(
   const header = el("header", "hero");
   header.append(
     el("p", "eyebrow", "🧘 Zen Master"),
-    el("h1", "", "Zen mode, by default."),
+    el("h1", "", "Zen Master is always active."),
     el(
       "p",
       "lede",

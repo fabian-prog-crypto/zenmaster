@@ -32,7 +32,11 @@ for (const entry of catalog) {
   const directory = path.join(fixturesRoot, entry.id);
   await mkdir(directory, { recursive: true });
   for (const fixture of fixtureKinds) {
-    const document = `<!doctype html><html><head><meta charset="utf-8"></head><body data-adapter="${entry.id}">${fixture.html}</body></html>\n`;
+    const fixtureHtml =
+      entry.id === "pornhub" && fixture.name === "watch"
+        ? `<main><div class="video-player" data-afb-expect="player"><video controls></video></div><aside id="hd-rightColVideoPage" class="related-videos" aria-label="Related" data-afb-expect="hide"><ul id="relateRecommendedItems"><li class="pcVideoListItem"><a href="/view_video.php?viewkey=item-1">[thumb-1]</a><a href="/view_video.php?viewkey=item-1">[title-1]</a></li><li class="pcVideoListItem"><a href="/view_video.php?viewkey=item-2">[thumb-2]</a><a href="/view_video.php?viewkey=item-2">[title-2]</a></li></ul></aside><button class="autoplay-next" aria-label="Autoplay next" aria-checked="true">Autoplay</button></main>`
+        : fixture.html;
+    const document = `<!doctype html><html><head><meta charset="utf-8"></head><body data-adapter="${entry.id}">${fixtureHtml}</body></html>\n`;
     const metadata = {
       adapterId: entry.id,
       pageKind: fixture.name === "listing" ? "blocked-listing" : fixture.name,

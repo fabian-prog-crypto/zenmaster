@@ -23,7 +23,7 @@ const defaultScheduler: MutationScheduler = {
 };
 
 export class MutationController {
-  readonly #queued = new Set<Element>();
+  readonly #queued = new Set<Element | ShadowRoot>();
   readonly #observers = new Set<MutationObserver>();
   #scheduled = false;
   #started = false;
@@ -57,6 +57,13 @@ export class MutationController {
           this.#enqueue(node);
           this.#discoverShadowRoots(node);
         }
+        if (record.removedNodes.length > 0) {
+          if (record.target instanceof Element || record.target instanceof ShadowRoot) {
+            this.#enqueue(record.target);
+          } else if (this.page.documentElement) {
+            this.#enqueue(this.page.documentElement);
+          }
+        }
       }
       this.#scheduleFrame();
     });
@@ -74,7 +81,7 @@ export class MutationController {
     }
   }
 
-  #enqueue(element: Element): void {
+  #enqueue(element: Element | ShadowRoot): void {
     for (const queued of this.#queued) {
       if (queued.contains(element)) return;
       if (element.contains(queued)) this.#queued.delete(queued);
@@ -96,7 +103,7 @@ export class MutationController {
     let processed = 0;
     while (this.#queued.size > 0 && processed < this.scheduler.maxRoots) {
       if (processed > 0 && this.scheduler.now() - startedAt >= 40) break;
-      const root = this.#queued.values().next().value as Element | undefined;
+      const root = this.#queued.values().next().value;
       if (!root) break;
       this.#queued.delete(root);
       this.process(root);

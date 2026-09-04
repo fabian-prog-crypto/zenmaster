@@ -6,9 +6,22 @@
   <body data-adapter="pornhub">
     <main>
       <div class="video-player" data-afb-expect="player"><video controls></video></div>
-      <aside class="related-videos" aria-label="Related" data-afb-expect="hide">
-        <a href="/video/item-1">[text-1]</a><a href="/video/item-2">[text-2]</a
-        ><a href="/video/item-3">[text-3]</a><a href="/video/item-4">[text-4]</a>
+      <aside
+        id="hd-rightColVideoPage"
+        class="related-videos"
+        aria-label="Related"
+        data-afb-expect="hide"
+      >
+        <ul id="relateRecommendedItems">
+          <li class="pcVideoListItem">
+            <a href="/view_video.php?viewkey=item-1">[thumb-1]</a
+            ><a href="/view_video.php?viewkey=item-1">[title-1]</a>
+          </li>
+          <li class="pcVideoListItem">
+            <a href="/view_video.php?viewkey=item-2">[thumb-2]</a
+            ><a href="/view_video.php?viewkey=item-2">[title-2]</a>
+          </li>
+        </ul>
       </aside>
       <button class="autoplay-next" aria-label="Autoplay next" aria-checked="true">Autoplay</button>
     </main>

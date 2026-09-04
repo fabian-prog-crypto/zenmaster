@@ -15,10 +15,11 @@ describe("popup", () => {
       blockedVideoCount: 4,
       autoAdvanceBlocked: true
     });
-    expect(document.body.textContent).toContain("Zen mode is on");
+    expect(document.body.textContent).toContain("Zen Master is active");
     expect(document.body.textContent).toContain("Zen Master");
     expect(document.body.textContent).toContain("🧘");
-    expect(document.body.textContent).toContain("4 recommendation areas hidden");
+    expect(document.body.textContent).toContain("4 video recommendations hidden");
+    expect(document.body.textContent).not.toContain("recommendation areas");
     expect(document.querySelector("[data-action='add-site']")).toBeNull();
     expect(document.body.textContent).not.toMatch(/pause|reveal|disable/i);
   });
