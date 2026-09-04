@@ -58,7 +58,7 @@ export function renderSettings(
   const renderBuiltIns = (query = "") => {
     list.replaceChildren();
     for (const site of model.catalog.filter((entry) =>
-      `${entry.displayName} ${entry.primaryHostname} ${entry.aliases.join(" ")}`
+      `${entry.displayName} ${entry.primaryHostname} ${entry.domainRoots.join(" ")}`
         .toLowerCase()
         .includes(query.toLowerCase())
     )) {

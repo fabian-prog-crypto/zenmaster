@@ -24,11 +24,12 @@ export async function registrationIdsForOrigin(pattern: string): Promise<Registr
 
 export function builtInPatterns(): string[] {
   return catalog
-    .flatMap((entry) => [
-      `https://${entry.primaryHostname}/*`,
-      `https://www.${entry.primaryHostname}/*`,
-      ...entry.aliases.map((hostname) => `https://${hostname}/*`)
-    ])
+    .flatMap((entry) =>
+      entry.domainRoots.flatMap((hostname) => [
+        `https://${hostname}/*`,
+        `https://www.${hostname}/*`
+      ])
+    )
     .sort();
 }
 

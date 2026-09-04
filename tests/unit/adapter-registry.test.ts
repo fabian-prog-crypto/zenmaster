@@ -5,7 +5,7 @@ import { createAdapterRegistry } from "../../src/adapters/registry.js";
 const adapterInput = {
   id: "example",
   displayName: "Example",
-  hostnames: ["example.com", "www.example.com"],
+  domainRoots: ["example.com"],
   ruleVersion: 1,
   frameSupport: "top-only" as const,
   classify: () => "unknown" as const,
@@ -16,10 +16,10 @@ const adapterInput = {
 };
 
 describe("adapter registry", () => {
-  it("normalizes hostnames and freezes adapters", () => {
+  it("normalizes domain roots and freezes adapters", () => {
     const adapter = defineAdapter({
       ...adapterInput,
-      hostnames: ["EXAMPLE.COM", "www.example.com"]
+      domainRoots: ["EXAMPLE.COM"]
     });
     const registry = createAdapterRegistry([adapter]);
     expect(registry.getAdapterForHostname("WWW.EXAMPLE.COM")).toBe(adapter);
@@ -39,6 +39,16 @@ describe("adapter registry", () => {
     ).toThrow("Invalid selector");
     const first = defineAdapter(adapterInput);
     const second = defineAdapter({ ...adapterInput, id: "second" });
-    expect(() => createAdapterRegistry([first, second])).toThrow("Duplicate hostname");
+    expect(() => createAdapterRegistry([first, second])).toThrow("Overlapping domain roots");
+  });
+
+  it("rejects nested roots owned by different adapters", () => {
+    const first = defineAdapter({ ...adapterInput, id: "first", domainRoots: ["example.com"] });
+    const second = defineAdapter({
+      ...adapterInput,
+      id: "second",
+      domainRoots: ["sub.example.com"]
+    });
+    expect(() => createAdapterRegistry([first, second])).toThrow("Overlapping domain roots");
   });
 });

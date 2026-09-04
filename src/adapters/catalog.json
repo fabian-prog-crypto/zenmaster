@@ -3,350 +3,350 @@
     "id": "pornhub",
     "displayName": "Pornhub",
     "primaryHostname": "pornhub.com",
-    "aliases": ["de.pornhub.org"],
+    "domainRoots": ["pornhub.com", "pornhub.org"],
     "family": "aylo"
   },
   {
     "id": "xvideos",
     "displayName": "XVideos",
     "primaryHostname": "xvideos.com",
-    "aliases": [],
+    "domainRoots": ["xvideos.com"],
     "family": "wgcz"
   },
   {
     "id": "xnxx",
     "displayName": "XNXX",
     "primaryHostname": "xnxx.com",
-    "aliases": [],
+    "domainRoots": ["xnxx.com"],
     "family": "wgcz"
   },
   {
     "id": "xhamster",
     "displayName": "xHamster",
     "primaryHostname": "xhamster.com",
-    "aliases": [],
+    "domainRoots": ["xhamster.com", "xhamster.desi"],
     "family": "standalone"
   },
   {
     "id": "youporn",
     "displayName": "YouPorn",
     "primaryHostname": "youporn.com",
-    "aliases": [],
+    "domainRoots": ["youporn.com"],
     "family": "aylo"
   },
   {
     "id": "redtube",
     "displayName": "RedTube",
     "primaryHostname": "redtube.com",
-    "aliases": [],
+    "domainRoots": ["redtube.com"],
     "family": "aylo"
   },
   {
     "id": "tube8",
     "displayName": "Tube8",
     "primaryHostname": "tube8.com",
-    "aliases": [],
+    "domainRoots": ["tube8.com"],
     "family": "aylo"
   },
   {
     "id": "spankbang",
     "displayName": "SpankBang",
     "primaryHostname": "spankbang.com",
-    "aliases": [],
+    "domainRoots": ["spankbang.com"],
     "family": "standalone"
   },
   {
     "id": "txxx",
     "displayName": "Txxx",
     "primaryHostname": "txxx.com",
-    "aliases": ["txxx.tube"],
+    "domainRoots": ["txxx.com", "txxx.tube"],
     "family": "avs"
   },
   {
     "id": "eporner",
     "displayName": "Eporner",
     "primaryHostname": "eporner.com",
-    "aliases": [],
+    "domainRoots": ["eporner.com"],
     "family": "standalone"
   },
   {
     "id": "noodlemagazine",
     "displayName": "NoodleMagazine",
     "primaryHostname": "noodlemagazine.com",
-    "aliases": [],
+    "domainRoots": ["noodlemagazine.com"],
     "family": "standalone"
   },
   {
     "id": "mat6tube",
     "displayName": "Mat6Tube",
     "primaryHostname": "mat6tube.com",
-    "aliases": [],
+    "domainRoots": ["mat6tube.com"],
     "family": "standalone"
   },
   {
     "id": "tukif",
     "displayName": "TuKif",
     "primaryHostname": "tukif.com",
-    "aliases": [],
+    "domainRoots": ["tukif.com"],
     "family": "standalone"
   },
   {
     "id": "hclips",
     "displayName": "HClips",
     "primaryHostname": "hclips.com",
-    "aliases": [],
+    "domainRoots": ["hclips.com"],
     "family": "avs"
   },
   {
     "id": "hqporner",
     "displayName": "HQPorner",
     "primaryHostname": "hqporner.com",
-    "aliases": [],
+    "domainRoots": ["hqporner.com"],
     "family": "standalone"
   },
   {
     "id": "porntrex",
     "displayName": "PornTrex",
     "primaryHostname": "porntrex.com",
-    "aliases": [],
+    "domainRoots": ["porntrex.com"],
     "family": "standalone"
   },
   {
     "id": "upornia",
     "displayName": "Upornia",
     "primaryHostname": "upornia.com",
-    "aliases": [],
+    "domainRoots": ["upornia.com"],
     "family": "avs"
   },
   {
     "id": "beeg",
     "displayName": "Beeg",
     "primaryHostname": "beeg.com",
-    "aliases": [],
+    "domainRoots": ["beeg.com"],
     "family": "standalone"
   },
   {
     "id": "thumbzilla",
     "displayName": "Thumbzilla",
     "primaryHostname": "thumbzilla.com",
-    "aliases": [],
+    "domainRoots": ["thumbzilla.com"],
     "family": "aylo"
   },
   {
     "id": "pornone",
     "displayName": "PornOne",
     "primaryHostname": "pornone.com",
-    "aliases": [],
+    "domainRoots": ["pornone.com"],
     "family": "standalone"
   },
   {
     "id": "xgroovy",
     "displayName": "xGroovy",
     "primaryHostname": "xgroovy.com",
-    "aliases": [],
+    "domainRoots": ["xgroovy.com"],
     "family": "standalone"
   },
   {
     "id": "heavyfetish",
     "displayName": "HeavyFetish",
     "primaryHostname": "heavyfetish.com",
-    "aliases": [],
+    "domainRoots": ["heavyfetish.com"],
     "family": "standalone"
   },
   {
     "id": "pornditt",
     "displayName": "PornDitt",
     "primaryHostname": "pornditt.com",
-    "aliases": [],
+    "domainRoots": ["pornditt.com"],
     "family": "avs"
   },
   {
     "id": "pornzog",
     "displayName": "PornZog",
     "primaryHostname": "pornzog.com",
-    "aliases": [],
+    "domainRoots": ["pornzog.com"],
     "family": "avs"
   },
   {
     "id": "hdzog",
     "displayName": "HDZog",
     "primaryHostname": "hdzog.com",
-    "aliases": ["hdzog.tube"],
+    "domainRoots": ["hdzog.com", "hdzog.tube"],
     "family": "avs"
   },
   {
     "id": "thegay",
     "displayName": "TheGay",
     "primaryHostname": "thegay.com",
-    "aliases": ["thegay.tube"],
+    "domainRoots": ["thegay.com", "thegay.tube"],
     "family": "avs"
   },
   {
     "id": "ooxxx",
     "displayName": "OOXXX",
     "primaryHostname": "ooxxx.com",
-    "aliases": [],
+    "domainRoots": ["ooxxx.com"],
     "family": "avs"
   },
   {
     "id": "hotmovs",
     "displayName": "HotMovs",
     "primaryHostname": "hotmovs.com",
-    "aliases": [],
+    "domainRoots": ["hotmovs.com"],
     "family": "avs"
   },
   {
     "id": "vjav",
     "displayName": "VJav",
     "primaryHostname": "vjav.com",
-    "aliases": [],
+    "domainRoots": ["vjav.com"],
     "family": "avs"
   },
   {
     "id": "pornl",
     "displayName": "PornL",
     "primaryHostname": "pornl.com",
-    "aliases": [],
+    "domainRoots": ["pornl.com"],
     "family": "avs"
   },
   {
     "id": "voyeurhit",
     "displayName": "VoyeurHit",
     "primaryHostname": "voyeurhit.com",
-    "aliases": [],
+    "domainRoots": ["voyeurhit.com"],
     "family": "avs"
   },
   {
     "id": "manysex",
     "displayName": "ManySex",
     "primaryHostname": "manysex.com",
-    "aliases": [],
+    "domainRoots": ["manysex.com"],
     "family": "avs"
   },
   {
     "id": "tubepornclassic",
     "displayName": "TubePornClassic",
     "primaryHostname": "tubepornclassic.com",
-    "aliases": [],
+    "domainRoots": ["tubepornclassic.com"],
     "family": "avs"
   },
   {
     "id": "shemalez",
     "displayName": "ShemaleZ",
     "primaryHostname": "shemalez.com",
-    "aliases": ["shemalez.tube"],
+    "domainRoots": ["shemalez.com", "shemalez.tube"],
     "family": "avs"
   },
   {
     "id": "fourkporn",
     "displayName": "4K Porn",
     "primaryHostname": "4kporn.xxx",
-    "aliases": [],
+    "domainRoots": ["4kporn.xxx"],
     "family": "8579"
   },
   {
     "id": "crazyporn",
     "displayName": "CrazyPorn",
     "primaryHostname": "crazyporn.xxx",
-    "aliases": [],
+    "domainRoots": ["crazyporn.xxx"],
     "family": "8579"
   },
   {
     "id": "love4porn",
     "displayName": "Love4Porn",
     "primaryHostname": "love4porn.com",
-    "aliases": [],
+    "domainRoots": ["love4porn.com"],
     "family": "8579"
   },
   {
     "id": "hoes",
     "displayName": "Hoes",
     "primaryHostname": "hoes.tube",
-    "aliases": [],
+    "domainRoots": ["hoes.tube"],
     "family": "8579"
   },
   {
     "id": "motherless",
     "displayName": "Motherless",
     "primaryHostname": "motherless.com",
-    "aliases": [],
+    "domainRoots": ["motherless.com"],
     "family": "standalone"
   },
   {
     "id": "theyarehuge",
     "displayName": "TheyAreHuge",
     "primaryHostname": "theyarehuge.com",
-    "aliases": [],
+    "domainRoots": ["theyarehuge.com"],
     "family": "trendio"
   },
   {
     "id": "trannyone",
     "displayName": "Tranny One",
     "primaryHostname": "tranny.one",
-    "aliases": [],
+    "domainRoots": ["tranny.one"],
     "family": "trendio"
   },
   {
     "id": "ahme",
     "displayName": "AH-ME",
     "primaryHostname": "ah-me.com",
-    "aliases": [],
+    "domainRoots": ["ah-me.com"],
     "family": "trendio"
   },
   {
     "id": "ashemale",
     "displayName": "AShemale",
     "primaryHostname": "ashemale.one",
-    "aliases": [],
+    "domainRoots": ["ashemale.one"],
     "family": "trendio"
   },
   {
     "id": "bdsmone",
     "displayName": "BDSM One",
     "primaryHostname": "bdsm.one",
-    "aliases": [],
+    "domainRoots": ["bdsm.one"],
     "family": "trendio"
   },
   {
     "id": "bemyhole",
     "displayName": "BeMyHole",
     "primaryHostname": "bemyhole.com",
-    "aliases": [],
+    "domainRoots": ["bemyhole.com"],
     "family": "trendio"
   },
   {
     "id": "gaygo",
     "displayName": "GayGo",
     "primaryHostname": "gaygo.tv",
-    "aliases": [],
+    "domainRoots": ["gaygo.tv"],
     "family": "trendio"
   },
   {
     "id": "gayxo",
     "displayName": "GayXO",
     "primaryHostname": "gayxo.com",
-    "aliases": [],
+    "domainRoots": ["gayxo.com"],
     "family": "trendio"
   },
   {
     "id": "shemalepub",
     "displayName": "Shemale Pub",
     "primaryHostname": "shemale.pub",
-    "aliases": [],
+    "domainRoots": ["shemale.pub"],
     "family": "trendio"
   },
   {
     "id": "sunporno",
     "displayName": "SunPorno",
     "primaryHostname": "sunporno.com",
-    "aliases": [],
+    "domainRoots": ["sunporno.com"],
     "family": "trendio"
   },
   {
     "id": "yesvids",
     "displayName": "YesVids",
     "primaryHostname": "yesvids.com",
-    "aliases": [],
+    "domainRoots": ["yesvids.com"],
     "family": "trendio"
   }
 ]

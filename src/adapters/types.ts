@@ -4,7 +4,7 @@ export interface CatalogEntry {
   id: string;
   displayName: string;
   primaryHostname: string;
-  aliases: string[];
+  domainRoots: string[];
   family: "aylo" | "wgcz" | "avs" | "8579" | "trendio" | "standalone";
 }
 
@@ -40,7 +40,7 @@ export type AutoAdvanceRule =
 export interface SiteAdapter {
   id: string;
   displayName: string;
-  hostnames: readonly string[];
+  domainRoots: readonly string[];
   ruleVersion: number;
   frameSupport: "top-only" | "matching-frames";
   classify(context: ClassificationContext): PageKind;

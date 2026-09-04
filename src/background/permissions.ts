@@ -11,11 +11,7 @@ import { customRegistrationsForOrigin, registrationIdsForOrigin } from "./regist
 
 const catalog = catalogJson as readonly CatalogEntry[];
 const builtInHosts = new Set(
-  catalog.flatMap((entry) => [
-    entry.primaryHostname,
-    `www.${entry.primaryHostname}`,
-    ...entry.aliases
-  ])
+  catalog.flatMap((entry) => entry.domainRoots.flatMap((hostname) => [hostname, `www.${hostname}`]))
 );
 
 export type AddSiteResult =

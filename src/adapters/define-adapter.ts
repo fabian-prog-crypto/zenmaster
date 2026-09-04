@@ -1,8 +1,9 @@
 import type { Rule, SiteAdapter } from "./types.js";
+import { normalizeDomainRoot } from "./domain-roots.js";
 
 export function defineAdapter(input: SiteAdapter): Readonly<SiteAdapter> {
   if (!/^[a-z0-9]+$/.test(input.id)) throw new Error(`Invalid adapter ID: ${input.id}`);
-  if (!input.hostnames.length) throw new Error(`Adapter ${input.id} has no hostnames`);
+  if (!input.domainRoots.length) throw new Error(`Adapter ${input.id} has no domain roots`);
   if (!Number.isInteger(input.ruleVersion) || input.ruleVersion < 1) {
     throw new Error(`Invalid rule version for ${input.id}`);
   }
@@ -21,7 +22,7 @@ export function defineAdapter(input: SiteAdapter): Readonly<SiteAdapter> {
   }
   return deepFreeze({
     ...input,
-    hostnames: input.hostnames.map((host) => host.toLowerCase())
+    domainRoots: input.domainRoots.map(normalizeDomainRoot)
   });
 }
 

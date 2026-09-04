@@ -58,8 +58,9 @@ const expectedIds = [
 describe("launch catalog", () => {
   it("contains the approved 50 unique adapters in stable order", () => {
     expect(catalog.map((entry) => entry.id)).toEqual(expectedIds);
-    const hosts = catalog.flatMap((entry) => [entry.primaryHostname, ...entry.aliases]);
-    expect(new Set(hosts).size).toBe(hosts.length);
+    const roots = catalog.flatMap((entry) => entry.domainRoots);
+    expect(new Set(roots).size).toBe(roots.length);
+    expect(catalog.every((entry) => entry.domainRoots.includes(entry.primaryHostname))).toBe(true);
   });
 
   it("starts with packaged ruleset version one", () => {

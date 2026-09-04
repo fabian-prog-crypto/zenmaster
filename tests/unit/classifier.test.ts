@@ -5,7 +5,7 @@ import { classifyPage } from "../../src/content/classifier.js";
 const adapter = defineAdapter({
   id: "example",
   displayName: "Example",
-  hostnames: ["example.com"],
+  domainRoots: ["example.com"],
   ruleVersion: 1,
   frameSupport: "top-only",
   classify(context) {

@@ -23,7 +23,7 @@ export function createCatalogAdapter(id: string): SiteAdapter {
   return defineAdapter({
     id: entry.id,
     displayName: entry.displayName,
-    hostnames: [entry.primaryHostname, `www.${entry.primaryHostname}`, ...entry.aliases],
+    domainRoots: entry.domainRoots,
     ruleVersion: 1,
     frameSupport: "top-only",
     classify: classifyKnownPage,
