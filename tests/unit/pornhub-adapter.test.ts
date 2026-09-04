@@ -19,6 +19,10 @@ describe("Pornhub adapter regressions", () => {
         </main>`;
   });
 
+  it("recognizes the German hostname as the Pornhub adapter", () => {
+    expect(adapterRegistry.getAdapterForHostname("de.pornhub.org")?.id).toBe("pornhub");
+  });
+
   it("hides the two-video watch sidebar without hiding the selected player", () => {
     const adapter = adapterRegistry.getAdapterForHostname("www.pornhub.com")!;
     const protection = new ProtectionRegistry();

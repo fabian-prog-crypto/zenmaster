@@ -1,6 +1,6 @@
 {
   "name": "zen-master-extension",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "engines": {
@@ -19,6 +19,7 @@
     "test:coverage": "vitest run --coverage tests/unit tests/adapters",
     "fixture:generate": "node scripts/generate-fixtures.mjs",
     "fixture:validate": "node scripts/validate-fixtures.mjs",
+    "icons:render": "node scripts/render-icons.mjs",
     "check:package": "node scripts/check-package.mjs",
     "package": "node scripts/package.mjs",
     "test": "npm run typecheck && npm run lint && npm run test:unit && npm run test:adapters",

@@ -158,6 +158,7 @@ export function scoreCandidate(
   context: GenericDetectionContext
 ): CandidateScore {
   if (
+    isPageShell(candidate) ||
     context.protection.intersects(candidate) ||
     candidate.closest(
       "form, nav, footer, [class*='account' i], [class*='legal' i], [class*='checkout' i]"
@@ -199,6 +200,13 @@ export function scoreCandidate(
     signals.push("complementary-near-player");
   }
   return { candidate, score, rejected: false, signals };
+}
+
+function isPageShell(candidate: Element): boolean {
+  return (
+    candidate.matches("html, body, main, [role='main']") ||
+    candidate.querySelector("main, [role='main']") !== null
+  );
 }
 
 export function detectGeneric(

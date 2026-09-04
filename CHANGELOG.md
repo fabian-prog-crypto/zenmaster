@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.2 — Ruleset 1
+
+### Added
+
+- Built-in Pornhub adapter coverage for `de.pornhub.org`.
+
+### Repaired
+
+- Regenerated every toolbar icon from the vector source without the accidental opaque white page canvas.
+- Prevented generic site protection from ever hiding a page shell that contains the main page content.
+
 ## 0.1.1 — Ruleset 1
 
 ### Repaired

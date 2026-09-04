@@ -50,6 +50,24 @@ test("registers persistent built-in scripts and hides watch recommendations", as
     .toBe("2");
 });
 
+test("uses the Pornhub adapter on the German hostname without hiding the page shell", async () => {
+  const fixture = await readFile(
+    path.join(process.cwd(), "tests/fixtures/pornhub/watch.html"),
+    "utf8"
+  );
+  const page = await extension!.context.newPage();
+  await page.route("https://de.pornhub.org/**", (route) =>
+    route.fulfill({ status: 200, contentType: "text/html", body: fixture })
+  );
+  await page.goto("https://de.pornhub.org/view_video.php?viewkey=afb-fixture");
+  await expect(page.locator("main")).toBeVisible();
+  await expect(page.locator(".related-videos")).toHaveAttribute(
+    "data-afb-hidden",
+    /pornhub:recommendation/
+  );
+  await expect(page.locator("video")).toBeAttached();
+});
+
 test("preserves search results and renders all settings entries", async () => {
   const fixture = await readFile(
     path.join(process.cwd(), "tests/fixtures/pornhub/search.html"),

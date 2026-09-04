@@ -15,8 +15,8 @@ const hostPermissions = catalog
   ])
   .toSorted();
 
-if (hostPermissions.length !== 104 || new Set(hostPermissions).size !== 104) {
-  throw new Error(`Expected 104 unique built-in host patterns, got ${hostPermissions.length}`);
+if (hostPermissions.length !== 105 || new Set(hostPermissions).size !== 105) {
+  throw new Error(`Expected 105 unique built-in host patterns, got ${hostPermissions.length}`);
 }
 
 await rm(dist, { recursive: true, force: true });

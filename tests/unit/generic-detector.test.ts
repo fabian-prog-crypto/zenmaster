@@ -47,4 +47,19 @@ describe("generic recommendation detection", () => {
     expect(context.pageKind).toBe("watch");
     expect(detectGeneric(document, { pageKind: "unknown", protection })).toEqual([]);
   });
+
+  it("never selects a page shell that contains the main page", () => {
+    document.body.innerHTML = `<div class="recommendations page-shell">
+      <main>
+        <a href="/video/1"></a><a href="/video/2"></a>
+        <a href="/video/3"></a><a href="/video/4"></a>
+      </main>
+    </div>`;
+    expect(
+      detectGeneric(document, {
+        pageKind: "unknown",
+        protection: new ProtectionRegistry()
+      })
+    ).toEqual([]);
+  });
 });
