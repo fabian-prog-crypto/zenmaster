@@ -43,7 +43,13 @@ const recommendations = [
 
 const siteRecommendationSelectors: Partial<Record<string, readonly string[]>> = {
   pornhub: [
+    "#hd-rightColVideoPage",
+    "#recommendedVideosVPage",
+    "#relatedVideosVPage",
+    "#relateRecommendedItems",
     "#relatedVideosCenter",
+    ".video-wrapper.js-relatedRecommended",
+    ".thumb-list--sidebar",
     ".recommended-video-wrapper",
     "[data-testid='video-recommendations']"
   ],

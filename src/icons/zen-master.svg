@@ -1,11 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
   <defs>
     <radialGradient id="background" cx="28%" cy="18%" r="92%">
-      <stop offset="0" stop-color="#527c68" />
-      <stop offset="1" stop-color="#254638" />
+      <stop offset="0" stop-color="#5b8a72" />
+      <stop offset="1" stop-color="#284b3c" />
     </radialGradient>
   </defs>
-  <rect width="128" height="128" rx="28" fill="url(#background)" />
-  <circle cx="64" cy="64" r="48" fill="none" stroke="#f5f3ed" stroke-opacity=".17" stroke-width="3" />
-  <text x="64" y="87" text-anchor="middle" font-family="Apple Color Emoji" font-size="72">🧘</text>
+  <rect x="2" y="2" width="124" height="124" rx="27" fill="url(#background)" />
+  <circle cx="64" cy="64" r="51" fill="none" stroke="#f8f3e6" stroke-opacity=".2" stroke-width="4" />
+  <g data-mark="meditation" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="64" cy="31" r="11" fill="#f2c56c" stroke="#f8f3e6" stroke-width="3" />
+    <path d="M50 55c4-10 24-10 28 0l5 23H45l5-23Z" fill="#d88b46" stroke="#f8f3e6" stroke-width="5" />
+    <path d="m50 58-14 17 22 8m20-25 14 17-22 8" stroke="#f2c56c" stroke-width="9" />
+    <path d="M58 78C48 80 44 90 29 94c13 8 27 6 35-4 8 10 22 12 35 4-15-4-19-14-29-16" stroke="#f8f3e6" stroke-width="11" />
+    <path d="M57 82h14" stroke="#f2c56c" stroke-width="7" />
+  </g>
 </svg>

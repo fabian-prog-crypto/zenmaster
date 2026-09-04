@@ -40,6 +40,9 @@ describe("Manifest V3 build", () => {
     });
     expect(manifest.action.default_icon).toEqual(manifest.icons);
     await Promise.all(Object.values(manifest.icons).map((file) => stat(`dist/${file}`)));
+    const iconSource = await readFile("src/icons/zen-master.svg", "utf8");
+    expect(iconSource).toContain('data-mark="meditation"');
+    expect(iconSource).not.toContain("Apple Color Emoji");
     const contentBundle = await readFile("dist/content/bootstrap.js", "utf8");
     expect(contentBundle).not.toMatch(/^export\s/m);
   });

@@ -6,6 +6,8 @@ export default defineConfig({
     globals: false,
     restoreMocks: true,
     clearMocks: true,
+    // Build-policy tests share the generated dist/ directory and must not race each other.
+    fileParallelism: false,
     coverage: {
       provider: "v8",
       reporter: ["text", "json-summary"],
