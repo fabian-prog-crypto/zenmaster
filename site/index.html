@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zen Master</title>
+    <meta
+      name="description"
+      content="A Chrome extension that removes the recommendation feeds from adult sites. You watch what you came for, then leave."
+    />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#ecf4ee" />
+    <link rel="canonical" href="https://zenmaster.life/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Zen Master" />
+    <meta property="og:url" content="https://zenmaster.life/" />
+    <meta property="og:title" content="Zen Master" />
+    <meta
+      property="og:description"
+      content="A Chrome extension that removes the recommendation feeds from adult sites. You watch what you came for, then leave."
+    />
+    <meta property="og:image" content="https://zenmaster.life/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Zen Master. You came for one video." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Zen Master" />
+    <meta
+      name="twitter:description"
+      content="A Chrome extension that removes the recommendation feeds from adult sites. You watch what you came for, then leave."
+    />
+    <meta name="twitter:image" content="https://zenmaster.life/og.png" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22128%22%20height%3D%22128%22%20viewBox%3D%220%200%20128%20128%22%3E%20%3Cdefs%3E%20%3CradialGradient%20id%3D%22background%22%20cx%3D%2228%25%22%20cy%3D%2218%25%22%20r%3D%2292%25%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235b8a72%22%20%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23284b3c%22%20%2F%3E%20%3C%2FradialGradient%3E%20%3C%2Fdefs%3E%20%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%22124%22%20height%3D%22124%22%20rx%3D%2227%22%20fill%3D%22url(%23background)%22%20%2F%3E%20%3Ccircle%20cx%3D%2264%22%20cy%3D%2264%22%20r%3D%2251%22%20fill%3D%22none%22%20stroke%3D%22%23f8f3e6%22%20stroke-opacity%3D%22.2%22%20stroke-width%3D%224%22%20%2F%3E%20%3Cg%20data-mark%3D%22meditation%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Ccircle%20cx%3D%2264%22%20cy%3D%2231%22%20r%3D%2211%22%20fill%3D%22%23f2c56c%22%20stroke%3D%22%23f8f3e6%22%20stroke-width%3D%223%22%20%2F%3E%20%3Cpath%20d%3D%22M50%2055c4-10%2024-10%2028%200l5%2023H45l5-23Z%22%20fill%3D%22%23d88b46%22%20stroke%3D%22%23f8f3e6%22%20stroke-width%3D%225%22%20%2F%3E%20%3Cpath%20d%3D%22m50%2058-14%2017%2022%208m20-25%2014%2017-22%208%22%20stroke%3D%22%23f2c56c%22%20stroke-width%3D%229%22%20%2F%3E%20%3Cpath%20d%3D%22M58%2078C48%2080%2044%2090%2029%2094c13%208%2027%206%2035-4%208%2010%2022%2012%2035%204-15-4-19-14-29-16%22%20stroke%3D%22%23f8f3e6%22%20stroke-width%3D%2211%22%20%2F%3E%20%3Cpath%20d%3D%22M57%2082h14%22%20stroke%3D%22%23f2c56c%22%20stroke-width%3D%227%22%20%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E"
+    />
+    <style>
+      /* __FONT_START__ */
+      @font-face {
+        font-family: "Rethink Sans";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("fonts/rethink-sans-latin.woff2") format("woff2");
+      }
+      /* __FONT_END__ */
+
+      /*
+        Palette: pastel green ground, near-black green ink, a bone panel under the diagram.
+        Yellow-gold is the one accent: the button, the badge count, and the focus ring.
+        Locked to a single light theme on purpose; the page paints its own ground everywhere.
+        Radius scale: 12px for the button and the panel, 4px for the miniature tiles inside it.
+      */
+      :root {
+        color-scheme: light;
+        --bg: #ecf4ee;
+        --ink: #122419;
+        --body: #1f3529;
+        --muted: #3e5548;
+        --line: rgba(18, 36, 25, 0.18);
+        --accent: #e6b13c;
+        --panel: #fcfbf7;
+        --panel-line: rgba(18, 36, 25, 0.1);
+        --button: #e6b13c;
+        --button-ink: #122419;
+        --player: #244a38;
+        --player-mark: rgba(248, 243, 230, 0.92);
+        --thumb: rgba(18, 36, 25, 0.12);
+        --thumb-pill: rgba(18, 36, 25, 0.38);
+        --ghost: rgba(18, 36, 25, 0.32);
+        --water: rgba(38, 98, 112, 0.42);
+        --stone: rgba(118, 124, 116, 0.42);
+        --stone-edge: rgba(70, 78, 72, 0.55);
+        --moss: rgba(92, 150, 100, 0.34);
+        --sand: rgba(160, 138, 92, 0.5);
+        --needle: rgba(48, 104, 70, 0.7);
+        --wood: rgba(134, 88, 54, 0.7);
+        --leaf: #b8482e;
+        --leaf-2: #c9962f;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--bg);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Rethink Sans", "Helvetica Neue", Arial, sans-serif;
+        font-size: 1.125rem;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      .wrap {
+        width: min(880px, 100% - 2.5rem);
+        margin-inline: auto;
+      }
+
+      p {
+        margin: 0;
+        text-wrap: pretty;
+      }
+
+      /* Nav: brand only. */
+
+      .top {
+        display: flex;
+        align-items: center;
+        min-height: 72px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 600;
+        font-size: 1.0625rem;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+      }
+
+      .brand svg {
+        display: block;
+        width: 28px;
+        height: 28px;
+      }
+
+      /* Hero */
+
+      .hero {
+        padding-top: 3rem;
+      }
+
+      h1 {
+        margin: 0 0 1.25rem;
+        max-width: 14ch;
+        font-size: clamp(2.6rem, 1.5rem + 4vw, 4.5rem);
+        font-weight: 700;
+        line-height: 0.98;
+        letter-spacing: -0.035em;
+        text-wrap: balance;
+      }
+
+      .sub {
+        max-width: 28em;
+        color: var(--body);
+        font-size: 1.3125rem;
+        line-height: 1.4;
+      }
+
+      .cta {
+        margin-top: 2rem;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 0.9rem 1.5rem;
+        border-radius: 12px;
+        background: var(--button);
+        color: var(--button-ink);
+        font-weight: 600;
+        font-size: 1.0625rem;
+        letter-spacing: -0.005em;
+        text-decoration: none;
+        transition:
+          background-color 0.18s ease,
+          color 0.18s ease,
+          transform 0.1s ease;
+      }
+
+      .button:hover {
+        background: var(--ink);
+        color: var(--accent);
+      }
+
+      .button:active {
+        transform: translateY(1px);
+      }
+
+      /* Diagram: a watch page with Zen Master on. The player stays, the wall dissolves. */
+
+      .demo {
+        margin: 3.5rem auto 0;
+      }
+
+      .watch {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 33%;
+        gap: clamp(8px, 2.2vw, 20px) clamp(10px, 2.8vw, 26px);
+        padding: clamp(12px, 3vw, 28px);
+        border: 1px solid var(--panel-line);
+        border-radius: 12px;
+        background: var(--panel);
+      }
+
+      .player {
+        grid-column: 1;
+        grid-row: 1;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 16 / 9;
+        border-radius: 4px;
+        background: var(--player);
+      }
+
+      .play {
+        width: 0;
+        height: 0;
+        margin-left: 5px;
+        border-style: solid;
+        border-width: 14px 0 14px 24px;
+        border-color: transparent transparent transparent var(--player-mark);
+      }
+
+      .rail {
+        grid-column: 2;
+        grid-row: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-content: start;
+        gap: clamp(5px, 1.5vw, 14px);
+      }
+
+      .grid {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: clamp(6px, 1.7vw, 16px);
+      }
+
+      .thumb {
+        position: relative;
+        display: block;
+        aspect-ratio: 16 / 9;
+        border: 1.5px dashed var(--ghost);
+        border-radius: 4px;
+      }
+
+      /* Filled layer: what the site rendered. Fades out, opacity only. */
+      .thumb::before {
+        content: "";
+        position: absolute;
+        inset: -1.5px;
+        border-radius: inherit;
+        background: var(--thumb);
+        opacity: 0;
+        animation: dissolve 1.4s ease-in-out both;
+        animation-delay: calc(1s + var(--i, 0) * 0.08s);
+      }
+
+      /* Duration pill, the one thing that makes a grey rectangle read as a video. */
+      .thumb::after {
+        content: "";
+        position: absolute;
+        right: 7%;
+        bottom: 9%;
+        width: 26%;
+        height: 22%;
+        border-radius: 2px;
+        background: var(--thumb-pill);
+        opacity: 0;
+        animation: dissolve 1.4s ease-in-out both;
+        animation-delay: calc(1s + var(--i, 0) * 0.08s);
+      }
+
+      @keyframes dissolve {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      figcaption {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+        max-width: 36em;
+        margin-top: 1.25rem;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      /* The real toolbar icon with its badge, as Chrome draws it. */
+      .ext {
+        position: relative;
+        flex: none;
+        width: 26px;
+        height: 26px;
+        margin-top: 0.1rem;
+        margin-right: 8px;
+      }
+
+      .ext svg {
+        display: block;
+        width: 26px;
+        height: 26px;
+      }
+
+      .count {
+        position: absolute;
+        right: -9px;
+        bottom: -6px;
+        min-width: 20px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 4px;
+        background: var(--accent);
+        color: var(--ink);
+        font-weight: 700;
+        font-size: 11px;
+        line-height: 16px;
+        font-variant-numeric: tabular-nums;
+        text-align: center;
+        animation: appear 0.5s ease-out both;
+        animation-delay: 4s;
+      }
+
+      @keyframes appear {
+        from {
+          opacity: 0;
+          transform: translateY(3px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .thumb::before,
+        .thumb::after,
+        .count,
+        .button {
+          animation: none;
+          transition: none;
+        }
+      }
+
+      /* Sections */
+
+      .section {
+        padding-top: 5.5rem;
+      }
+
+      h2 {
+        margin: 0 0 1rem;
+        font-size: 1.375rem;
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.015em;
+        text-wrap: balance;
+      }
+
+      /* The loop: one large statement. */
+
+      .loop h2 {
+        max-width: 22ch;
+        margin-bottom: 1.5rem;
+        font-size: clamp(1.9rem, 1.2rem + 2.4vw, 2.75rem);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+      }
+
+      .loop p {
+        max-width: 30em;
+        color: var(--body);
+        font-size: 1.25rem;
+        line-height: 1.45;
+      }
+
+      /* What goes, what stays: two columns. */
+
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+
+      .split ul {
+        margin: 0;
+        padding-left: 1.15rem;
+        color: var(--body);
+      }
+
+      .split li {
+        margin-bottom: 0.4rem;
+        padding-left: 0.15rem;
+      }
+
+      li::marker {
+        color: var(--muted);
+      }
+
+      /* How it behaves: four statements, offset to the right. */
+
+      .facts {
+        margin: 0;
+        margin-left: 30%;
+      }
+
+      .facts div + div {
+        margin-top: 1.6rem;
+      }
+
+      .facts dt {
+        display: inline;
+        font-weight: 600;
+      }
+
+      .facts dd {
+        display: inline;
+        margin: 0;
+        color: var(--body);
+      }
+
+      /* Install: numbered steps. */
+
+      .install p {
+        max-width: 34em;
+        color: var(--body);
+      }
+
+      .steps {
+        max-width: 34em;
+        margin: 1.25rem 0;
+        padding-left: 1.5rem;
+        color: var(--body);
+      }
+
+      .steps li {
+        margin-bottom: 0.5rem;
+        padding-left: 0.25rem;
+      }
+
+      .steps a,
+      .steps b {
+        color: var(--ink);
+      }
+
+      code {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 0.9em;
+        color: var(--ink);
+      }
+
+      /* Garden: a fixed strip in the right margin. The drawing is twice the viewport tall and drifts up as the page scrolls, sparse at the top and fuller below. Water drifts at rest and flows faster while scrolling. */
+
+      .river {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: calc(50% + 468px);
+        width: min(260px, calc(50vw - 476px));
+        display: none;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .river svg {
+        display: block;
+        height: 200vh;
+        width: auto;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        will-change: transform;
+      }
+
+      .needle {
+        fill: none;
+        stroke: var(--needle);
+        stroke-width: 1;
+        stroke-linecap: round;
+      }
+
+      .rake {
+        fill: none;
+        stroke: var(--sand);
+        stroke-width: 0.9;
+      }
+
+      .wood {
+        fill: none;
+        stroke: var(--wood);
+        stroke-linecap: round;
+      }
+
+      .leaf {
+        fill: var(--leaf);
+        opacity: 0.85;
+      }
+
+      .leaf.second {
+        fill: var(--leaf-2);
+      }
+
+      .backing {
+        fill: var(--bg);
+      }
+
+      .water {
+        fill: none;
+        stroke: var(--water);
+        stroke-width: 1.4;
+        stroke-linecap: round;
+      }
+
+      .stone {
+        fill: var(--stone);
+        stroke: var(--stone-edge);
+        stroke-width: 1;
+      }
+
+      .moss {
+        fill: var(--moss);
+      }
+
+      @media (min-width: 1280px) {
+        .river {
+          display: block;
+        }
+      }
+
+      /* Footer */
+
+      .foot {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.75rem 1.5rem;
+        margin-top: 5.5rem;
+        padding-block: 1.5rem 3rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.9375rem;
+      }
+
+      .foot a {
+        text-decoration: none;
+      }
+
+      .foot a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 720px) {
+        .hero {
+          padding-top: 2rem;
+        }
+        .demo {
+          margin-top: 2.75rem;
+        }
+        .section {
+          padding-top: 4rem;
+        }
+        .split {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .facts {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <symbol id="zm" viewBox="0 0 128 128">
+        <defs>
+          <radialGradient id="zm-bg" cx="28%" cy="18%" r="92%">
+            <stop offset="0" stop-color="#5b8a72" />
+            <stop offset="1" stop-color="#284b3c" />
+          </radialGradient>
+        </defs>
+        <rect x="2" y="2" width="124" height="124" rx="27" fill="url(#zm-bg)" />
+        <circle
+          cx="64"
+          cy="64"
+          r="51"
+          fill="none"
+          stroke="#f8f3e6"
+          stroke-opacity=".2"
+          stroke-width="4"
+        />
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="64" cy="31" r="11" fill="#f2c56c" stroke="#f8f3e6" stroke-width="3" />
+          <path
+            d="M50 55c4-10 24-10 28 0l5 23H45l5-23Z"
+            fill="#d88b46"
+            stroke="#f8f3e6"
+            stroke-width="5"
+          />
+          <path d="m50 58-14 17 22 8m20-25 14 17-22 8" stroke="#f2c56c" stroke-width="9" />
+          <path
+            d="M58 78C48 80 44 90 29 94c13 8 27 6 35-4 8 10 22 12 35 4-15-4-19-14-29-16"
+            stroke="#f8f3e6"
+            stroke-width="11"
+          />
+          <path d="M57 82h14" stroke="#f2c56c" stroke-width="7" />
+        </g>
+      </symbol>
+    </svg>
+
+    <header class="top wrap">
+      <a class="brand" href="#top">
+        <svg aria-hidden="true"><use href="#zm" /></svg>
+        Zen Master
+      </a>
+    </header>
+
+    <aside class="river" aria-hidden="true">
+      <svg viewBox="0 0 200 1600" preserveAspectRatio="xMidYMin meet">
+        <ellipse class="moss" cx="142" cy="182" rx="40" ry="13" />
+        <ellipse class="moss" cx="150" cy="990" rx="30" ry="9" />
+        <ellipse class="moss" cx="56" cy="1176" rx="44" ry="14" />
+        <ellipse class="moss" cx="54" cy="1556" rx="42" ry="13" />
+        <path
+          class="water"
+          data-flow="0.85"
+          stroke-dasharray="18 9"
+          d="M78 -60C78 47 46 28 46 135C46 242 112 223 112 330C112 437 44 418 44 525C44 632 114 613 114 720C114 827 42 808 42 915C42 1022 112 1003 112 1110C112 1217 46 1198 46 1305C46 1412 110 1393 110 1500C110 1607 78 1588 78 1695"
+        />
+        <path
+          class="water"
+          data-flow="1"
+          stroke-dasharray="12 8"
+          d="M100 -60C100 38 68 38 68 135C68 233 134 233 134 330C134 428 66 428 66 525C66 623 136 623 136 720C136 818 64 818 64 915C64 1013 134 1013 134 1110C134 1208 68 1208 68 1305C68 1403 132 1403 132 1500C132 1598 100 1598 100 1695"
+        />
+        <path
+          class="water"
+          data-flow="1.2"
+          stroke-dasharray="22 12"
+          d="M117 -60C117 53 85 22 85 135C85 248 151 217 151 330C151 443 83 412 83 525C83 638 153 607 153 720C153 833 81 802 81 915C81 1028 151 997 151 1110C151 1223 85 1192 85 1305C85 1418 149 1387 149 1500C149 1613 117 1582 117 1695"
+        />
+        <path
+          class="stone"
+          transform="translate(142 176)"
+          d="M-22 -4C-20 -16 -4 -20 8 -16C20 -12 26 0 18 10C10 18 -8 16 -18 10C-26 5 -25 3 -22 -4Z"
+        />
+        <path
+          class="stone"
+          transform="translate(170 186)"
+          d="M-11 -2C-9 -8 2 -9 6 -7C12 -4 12 3 8 6C3 9 -6 8 -10 4C-13 1 -13 0 -11 -2Z"
+        />
+        <path
+          class="stone"
+          transform="translate(36 612)"
+          d="M-11 -2C-9 -8 2 -9 6 -7C12 -4 12 3 8 6C3 9 -6 8 -10 4C-13 1 -13 0 -11 -2Z"
+        />
+        <path
+          class="stone"
+          transform="translate(52 624) rotate(20)"
+          d="M-11 -2C-9 -8 2 -9 6 -7C12 -4 12 3 8 6C3 9 -6 8 -10 4C-13 1 -13 0 -11 -2Z"
+        />
+        <path
+          class="stone"
+          transform="translate(148 1350)"
+          d="M-11 -2C-9 -8 2 -9 6 -7C12 -4 12 3 8 6C3 9 -6 8 -10 4C-13 1 -13 0 -11 -2Z"
+        />
+        <path
+          class="stone"
+          transform="translate(164 1361) rotate(-15)"
+          d="M-11 -2C-9 -8 2 -9 6 -7C12 -4 12 3 8 6C3 9 -6 8 -10 4C-13 1 -13 0 -11 -2Z"
+        />
+        <path
+          class="backing"
+          transform="translate(96 806)"
+          d="M-9 -5C-6 -9 5 -9 8 -5C11 -1 10 4 6 6C1 8 -6 7 -9 3C-11 0 -11 -2 -9 -5Z"
+        />
+        <path
+          class="stone"
+          transform="translate(96 806)"
+          d="M-9 -5C-6 -9 5 -9 8 -5C11 -1 10 4 6 6C1 8 -6 7 -9 3C-11 0 -11 -2 -9 -5Z"
+        />
+        <path
+          class="backing"
+          transform="translate(116 800)"
+          d="M-9 -5C-6 -9 5 -9 8 -5C11 -1 10 4 6 6C1 8 -6 7 -9 3C-11 0 -11 -2 -9 -5Z"
+        />
+        <path
+          class="stone"
+          transform="translate(116 800)"
+          d="M-9 -5C-6 -9 5 -9 8 -5C11 -1 10 4 6 6C1 8 -6 7 -9 3C-11 0 -11 -2 -9 -5Z"
+        />
+        <path
+          class="backing"
+          transform="translate(136 797)"
+          d="M-9 -5C-6 -9 5 -9 8 -5C11 -1 10 4 6 6C1 8 -6 7 -9 3C-11 0 -11 -2 -9 -5Z"
+        />
+        <path
+          class="stone"
+          transform="translate(136 797)"
+          d="M-9 -5C-6 -9 5 -9 8 -5C11 -1 10 4 6 6C1 8 -6 7 -9 3C-11 0 -11 -2 -9 -5Z"
+        />
+        <path
+          class="backing"
+          transform="translate(156 802)"
+          d="M-9 -5C-6 -9 5 -9 8 -5C11 -1 10 4 6 6C1 8 -6 7 -9 3C-11 0 -11 -2 -9 -5Z"
+        />
+        <path
+          class="stone"
+          transform="translate(156 802)"
+          d="M-9 -5C-6 -9 5 -9 8 -5C11 -1 10 4 6 6C1 8 -6 7 -9 3C-11 0 -11 -2 -9 -5Z"
+        />
+        <g class="stone" transform="translate(150 984)">
+          <rect x="-13" y="-6" width="26" height="6" rx="1" />
+          <rect x="-3.5" y="-28" width="7" height="22" />
+          <rect x="-10" y="-33" width="20" height="5" rx="1" />
+          <rect x="-7.5" y="-48" width="15" height="15" rx="1" />
+          <path d="M-18 -48C-10 -52 10 -52 18 -48L4 -58H-4Z" />
+          <circle cx="0" cy="-61" r="2.6" />
+        </g>
+        <rect class="backing" x="147" y="943" width="6" height="6" rx="1" />
+        <g class="rake">
+          <ellipse cx="55" cy="1172" rx="20" ry="11" />
+          <ellipse cx="57" cy="1171" rx="30" ry="17" transform="rotate(-4 57 1171)" />
+          <ellipse cx="56" cy="1174" rx="40" ry="23" transform="rotate(3 56 1174)" />
+        </g>
+        <path
+          class="stone"
+          transform="translate(56 1170)"
+          d="M-26 -6C-22 -20 0 -22 12 -18C26 -14 30 2 22 12C12 20 -10 18 -22 12C-30 6 -30 2 -26 -6Z"
+        />
+        <g class="wood" stroke-width="3.5">
+          <path d="M38 517C50 503 88 503 100 517" />
+          <path d="M38 523C50 509 88 509 100 523" stroke-width="1.2" />
+        </g>
+        <g class="wood" stroke-width="1.4">
+          <path d="M40 509v10M60 505v10M78 505v10M98 509v10" />
+        </g>
+        <path
+          class="needle"
+          stroke-width="1.6"
+          d="M204 1462C184 1470 168 1488 150 1494C138 1498 128 1494 118 1500"
+        />
+        <path class="needle" d="M170 1487C168 1478 172 1470 178 1465" />
+        <path
+          class="needle"
+          d="M150 1494l-7.9 -4.2M150 1494l-6.7 -6.0M150 1494l-5.0 -7.5M150 1494l-3.1 -8.5M150 1494l-0.9 -9.0M150 1494l1.3 -8.9M150 1494l3.4 -8.3M128 1495l-6.9 -5.8M128 1495l-5.3 -7.3M128 1495l-3.4 -8.3M128 1495l-1.3 -8.9M128 1495l0.9 -9.0M128 1495l3.1 -8.5M128 1495l5.0 -7.5M118 1500l-8.6 -2.8M118 1500l-7.6 -4.8M118 1500l-6.3 -6.5M118 1500l-4.5 -7.8M118 1500l-2.5 -8.7M118 1500l-0.3 -9.0M118 1500l1.9 -8.8M178 1465l-9.0 -0.5M178 1465l-8.6 -2.6M178 1465l-7.7 -4.6M178 1465l-6.4 -6.4M178 1465l-4.6 -7.7M178 1465l-2.6 -8.6M178 1465l-0.5 -9.0"
+        />
+        <path
+          class="stone"
+          transform="translate(52 1550)"
+          d="M-22 -4C-20 -16 -4 -20 8 -16C20 -12 26 0 18 10C10 18 -8 16 -18 10C-26 5 -25 3 -22 -4Z"
+        />
+        <path
+          class="stone"
+          transform="translate(82 1560)"
+          d="M-11 -2C-9 -8 2 -9 6 -7C12 -4 12 3 8 6C3 9 -6 8 -10 4C-13 1 -13 0 -11 -2Z"
+        />
+        <path
+          class="leaf"
+          data-leaf="0.18"
+          data-side="7"
+          d="M0 -8C1.5 -5 3 -4 5 -6C5 -3 5.5 -1 8 -1C6 1 5 2.5 6 5C4 4 2.5 4 2 6.5L0 8L-2 6.5C-2.5 4 -4 4 -6 5C-5 2.5 -6 1 -8 -1C-5.5 -1 -5 -3 -5 -6C-3 -4 -1.5 -5 0 -8Z"
+        />
+        <path
+          class="leaf second"
+          data-leaf="0.62"
+          data-side="-8"
+          transform="scale(0.8)"
+          d="M0 -8C1.5 -5 3 -4 5 -6C5 -3 5.5 -1 8 -1C6 1 5 2.5 6 5C4 4 2.5 4 2 6.5L0 8L-2 6.5C-2.5 4 -4 4 -6 5C-5 2.5 -6 1 -8 -1C-5.5 -1 -5 -3 -5 -6C-3 -4 -1.5 -5 0 -8Z"
+        />
+      </svg>
+    </aside>
+
+    <main id="top">
+      <section class="hero wrap">
+        <h1>You came for one video.</h1>
+        <p class="sub">
+          Zen Master removes the recommendation feeds from adult sites. The video you opened is the
+          only one on the page.
+        </p>
+        <div class="cta">
+          <a class="button" href="#install">Install for Chrome</a>
+        </div>
+      </section>
+
+      <figure class="demo wrap">
+        <div
+          class="watch"
+          role="img"
+          aria-label="Diagram of a watch page with Zen Master on. The video player stays. Twenty-four recommendation thumbnails beside and below it fade to empty outlines."
+        >
+          <div class="player"><span class="play"></span></div>
+          <div class="rail">
+            <span class="thumb" style="--i: 0"></span>
+            <span class="thumb" style="--i: 1"></span>
+            <span class="thumb" style="--i: 2"></span>
+            <span class="thumb" style="--i: 3"></span>
+            <span class="thumb" style="--i: 4"></span>
+            <span class="thumb" style="--i: 5"></span>
+          </div>
+          <div class="grid">
+            <span class="thumb" style="--i: 6"></span>
+            <span class="thumb" style="--i: 7"></span>
+            <span class="thumb" style="--i: 8"></span>
+            <span class="thumb" style="--i: 9"></span>
+            <span class="thumb" style="--i: 10"></span>
+            <span class="thumb" style="--i: 11"></span>
+            <span class="thumb" style="--i: 12"></span>
+            <span class="thumb" style="--i: 13"></span>
+            <span class="thumb" style="--i: 14"></span>
+            <span class="thumb" style="--i: 15"></span>
+            <span class="thumb" style="--i: 16"></span>
+            <span class="thumb" style="--i: 17"></span>
+            <span class="thumb" style="--i: 18"></span>
+            <span class="thumb" style="--i: 19"></span>
+            <span class="thumb" style="--i: 20"></span>
+            <span class="thumb" style="--i: 21"></span>
+            <span class="thumb" style="--i: 22"></span>
+            <span class="thumb" style="--i: 23"></span>
+          </div>
+        </div>
+        <figcaption>
+          <span class="ext" aria-hidden="true">
+            <svg><use href="#zm" /></svg>
+            <b class="count">24</b>
+          </span>
+          <span>
+            A watch page with Zen Master on. The player stays. Everything the site lined up around
+            it is gone, and the toolbar icon shows how much it removed from this page.
+          </span>
+        </figcaption>
+      </figure>
+
+      <section class="section loop wrap">
+        <h2>The loop isn't you. It's the recommendation engine.</h2>
+        <p>
+          Adult sites run the same engine as every feed you can't put down, tuned for one thing: the
+          next click. Related videos, up next, an endless grid under the player. It isn't there to
+          help you find anything. It's there to keep you, and it works because it pulls on the same
+          dopamine wiring in everyone.
+        </p>
+      </section>
+
+      <section class="section split wrap">
+        <div>
+          <h2>What goes</h2>
+          <ul>
+            <li>Home page feeds</li>
+            <li>Related and recommended videos</li>
+            <li>Up next and end screens</li>
+            <li>Category, tag, model and channel listings</li>
+            <li>The automatic jump to the next video</li>
+          </ul>
+        </div>
+        <div>
+          <h2>What stays</h2>
+          <ul>
+            <li>Search, filters and results</li>
+            <li>The video you opened, and its player</li>
+            <li>Your history, favorites, subscriptions and playlists</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section wrap">
+        <dl class="facts">
+          <div>
+            <dt>Not a blocker.</dt>
+            <dd>
+              It doesn't stop you from going to a site, doesn't judge you for going, and doesn't
+              tell anyone you went. It removes the part of the page whose only job is to keep you
+              there.
+            </dd>
+          </div>
+          <div>
+            <dt>No off switch.</dt>
+            <dd>
+              No pause, no reveal, no per-site disable. Bringing the feed back means removing the
+              extension in Chrome's settings, which takes longer than an impulse lasts.
+            </dd>
+          </div>
+          <div id="privacy">
+            <dt>Nothing leaves your browser.</dt>
+            <dd>
+              No account, no telemetry, no server. It never stores what you watched, what you
+              searched for, or how much it hid.
+            </dd>
+          </div>
+          <div>
+            <dt>Fifty sites, out of the box.</dt>
+            <dd>
+              Pornhub, XVideos, XNXX and 47 more have built-in rules. Add any other site from the
+              toolbar with one click, and Chrome grants access to that one address only.
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="section install wrap" id="install">
+        <h2>Install for Chrome</h2>
+        <p>
+          Zen Master is free and isn't in the Chrome Web Store yet. Installing the current build
+          takes about a minute.
+        </p>
+        <ol class="steps">
+          <li>
+            <a href="/download">Download Zen Master <span data-version>0.1.4</span></a> and unzip
+            it.
+          </li>
+          <li>
+            Open <code>chrome://extensions</code> and turn on Developer mode in the top right.
+          </li>
+          <li>Choose <b>Load unpacked</b> and pick the folder you just unzipped.</li>
+        </ol>
+        <p>It's on from that moment, on every site it covers, until you remove it.</p>
+      </section>
+    </main>
+
+    <footer class="foot wrap">
+      <span>Zen Master</span>
+      <a href="#privacy">Privacy</a>
+    </footer>
+
+    <script>
+      (function () {
+        var river = document.querySelector(".river");
+        var svg = river && river.querySelector("svg");
+        if (!svg) return;
+        var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        var lines = Array.prototype.map.call(svg.querySelectorAll("[data-flow]"), function (el) {
+          var period = el
+            .getAttribute("stroke-dasharray")
+            .split(/\s+/)
+            .reduce(function (sum, n) {
+              return sum + parseFloat(n);
+            }, 0);
+          return {
+            el: el,
+            rate: parseFloat(el.getAttribute("data-flow")),
+            period: period,
+            offset: 0
+          };
+        });
+
+        var REST = 9; // px per second of current when nothing is happening
+        var boost = 0;
+        var lastY = window.scrollY;
+        var lastScroll = performance.now();
+        var prev = performance.now();
+        var travel = 0; // how far the garden can drift, measured on resize
+        var shown = 0; // eased garden position
+
+        var mid = svg.querySelector('[data-flow="1"]');
+        var length = mid.getTotalLength();
+        var leaves = Array.prototype.map.call(svg.querySelectorAll("[data-leaf]"), function (el) {
+          var scale = /scale\(([\d.]+)\)/.exec(el.getAttribute("transform") || "");
+          return {
+            el: el,
+            dist: parseFloat(el.getAttribute("data-leaf")) * length,
+            side: parseFloat(el.getAttribute("data-side")),
+            scale: scale ? parseFloat(scale[1]) : 1,
+            spin: 0
+          };
+        });
+
+        function placeLeaves(dt, speed) {
+          for (var i = 0; i < leaves.length; i++) {
+            var leaf = leaves[i];
+            leaf.dist = (leaf.dist + speed * 0.9 * dt + length) % length;
+            leaf.spin += 18 * dt;
+            var p = mid.getPointAtLength(leaf.dist);
+            var q = mid.getPointAtLength(Math.min(length, leaf.dist + 1));
+            var dx = q.x - p.x,
+              dy = q.y - p.y;
+            var n = Math.hypot(dx, dy) || 1;
+            var x = p.x + (-dy / n) * leaf.side;
+            var y = p.y + (dx / n) * leaf.side;
+            var angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+            leaf.el.setAttribute(
+              "transform",
+              "translate(" +
+                x.toFixed(2) +
+                " " +
+                y.toFixed(2) +
+                ") rotate(" +
+                (angle + leaf.spin).toFixed(1) +
+                ") scale(" +
+                leaf.scale +
+                ")"
+            );
+          }
+        }
+        placeLeaves(0, 0);
+
+        function measure() {
+          travel = Math.max(0, svg.getBoundingClientRect().height - river.clientHeight);
+        }
+        measure();
+        window.addEventListener("resize", measure);
+
+        window.addEventListener(
+          "scroll",
+          function () {
+            var now = performance.now();
+            var dt = Math.max(now - lastScroll, 16);
+            var velocity = Math.abs(window.scrollY - lastY) / dt; // px per ms
+            boost = Math.min(boost + velocity * 22, 130);
+            lastY = window.scrollY;
+            lastScroll = now;
+          },
+          { passive: true }
+        );
+
+        function place() {
+          var range = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+          var target = Math.min(1, Math.max(0, window.scrollY / range)) * travel;
+          shown = reduce ? target : shown + (target - shown) * 0.12;
+          svg.style.transform = "translate(-50%, " + (-shown).toFixed(2) + "px)";
+        }
+
+        function frame(now) {
+          var dt = Math.min(now - prev, 100) / 1000;
+          prev = now;
+          place();
+          if (!reduce) {
+            boost *= Math.exp(-dt / 0.9);
+            var speed = REST + boost;
+            for (var i = 0; i < lines.length; i++) {
+              var l = lines[i];
+              l.offset = (l.offset - speed * l.rate * dt) % l.period;
+              l.el.setAttribute("stroke-dashoffset", l.offset.toFixed(2));
+            }
+            placeLeaves(dt, speed);
+          }
+          requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      })();
+    </script>
+  </body>
+</html>

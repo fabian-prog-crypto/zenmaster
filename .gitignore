@@ -7,3 +7,5 @@ test-results/
 .capture-scratch/
 .worktrees/
 .DS_Store
+.vercel/
+site/*.zip
