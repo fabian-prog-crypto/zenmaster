@@ -4,12 +4,22 @@
     <meta charset="utf-8" />
   </head>
   <body data-adapter="noodlemagazine">
+    <header>
+      <form role="search"><input type="search" /></form>
+    </header>
     <main>
-      <h1>Popular</h1>
-      <div class="list-videos" data-afb-expect="hide">
-        <a href="/video/item-1">[text-1]</a><a href="/video/item-2">[text-2]</a
-        ><a href="/video/item-3">[text-3]</a><a href="/video/item-4">[text-4]</a>
-      </div>
+      <h1>[interface]</h1>
+      <section data-layout="rail" data-afb-expect="hide">
+        <div class="entry">
+          <a href="/a1"><span data-thumbnail></span></a>
+        </div>
+        <div class="entry">
+          <a href="/a2"><span data-thumbnail></span></a>
+        </div>
+        <div class="entry">
+          <a href="/a3"><span data-thumbnail></span></a>
+        </div>
+      </section>
     </main>
   </body>
 </html>

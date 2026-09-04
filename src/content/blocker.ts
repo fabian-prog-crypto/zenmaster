@@ -25,8 +25,13 @@ export class Blocker {
       try {
         for (const match of collectMatches(root, rule.selector)) {
           const candidate = resolveContainer(match, rule);
-          if (!candidate || this.protection.intersects(candidate) || this.#owned.has(candidate))
+          if (
+            !candidate ||
+            this.protection.intersects(candidate) ||
+            this.#hasOwnedAncestor(candidate)
+          )
             continue;
+          this.#releaseOwnedDescendants(candidate);
           candidate.setAttribute("data-afb-hidden", `${this.adapterId}:${rule.id}`);
           this.#owned.add(candidate);
           newlyBlocked += 1;
@@ -42,7 +47,7 @@ export class Blocker {
   blockElements(elements: Iterable<Element>, ruleId: string): BlockResult {
     let newlyBlocked = 0;
     for (const candidate of elements) {
-      if (this.protection.intersects(candidate) || this.#owned.has(candidate)) continue;
+      if (this.protection.intersects(candidate) || this.#intersectsOwned(candidate)) continue;
       candidate.setAttribute("data-afb-hidden", `${this.adapterId}:${ruleId}`);
       this.#owned.add(candidate);
       newlyBlocked += 1;
@@ -79,6 +84,30 @@ export class Blocker {
 
   #purgeDisconnected(): void {
     for (const element of this.#owned) if (!element.isConnected) this.#owned.delete(element);
+  }
+
+  #intersectsOwned(candidate: Element): boolean {
+    for (const owned of this.#owned) {
+      if (owned === candidate || owned.contains(candidate) || candidate.contains(owned))
+        return true;
+    }
+    return false;
+  }
+
+  #hasOwnedAncestor(candidate: Element): boolean {
+    for (const owned of this.#owned) {
+      if (owned === candidate || owned.contains(candidate)) return true;
+    }
+    return false;
+  }
+
+  #releaseOwnedDescendants(candidate: Element): void {
+    for (const owned of this.#owned) {
+      if (!candidate.contains(owned)) continue;
+      const value = owned.getAttribute("data-afb-hidden");
+      if (value?.startsWith(`${this.adapterId}:`)) owned.removeAttribute("data-afb-hidden");
+      this.#owned.delete(owned);
+    }
   }
 }
 

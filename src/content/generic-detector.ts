@@ -1,4 +1,5 @@
 import type { PageKind } from "../shared/page-kind.js";
+import { findMediaCardGroups } from "./media-structure.js";
 import type { ProtectionRegistry } from "./protection-registry.js";
 
 export const GENERIC_THRESHOLD = 6;
@@ -7,7 +8,10 @@ export const GENERIC_WEIGHTS = Object.freeze({
   blockedListing: 4,
   videoLinksNearPlayer: 3,
   repeatedCards: 2,
-  complementaryNearPlayer: 2
+  complementaryNearPlayer: 2,
+  repeatedMediaCards: 3,
+  homeOrBlockedListing: 3,
+  mediaNearPlayer: 3
 });
 
 export interface GenericPageContext {
@@ -26,6 +30,11 @@ export interface RuleMatch {
   ruleId: "generic-high-confidence";
   candidate: Element;
   score: number;
+}
+
+export interface StructuralScanResult {
+  matches: readonly RuleMatch[];
+  observedMediaGroups: number;
 }
 
 export interface GenericDetectionContext {
@@ -147,7 +156,7 @@ export function registerGenericProtectedRoots(
   if (context.primaryPlayer) {
     protection.register(
       context.primaryPlayer.closest(
-        "main, article, [data-player-container], [class*='player' i]"
+        "[data-player-container], [class*='player' i], [id*='player' i]"
       ) ?? context.primaryPlayer
     );
   }
@@ -213,6 +222,13 @@ export function detectGeneric(
   root: Document | Element | ShadowRoot,
   context: GenericDetectionContext
 ): RuleMatch[] {
+  return [...scanRecommendations(root, context).matches];
+}
+
+export function scanRecommendations(
+  root: Document | Element | ShadowRoot,
+  context: GenericDetectionContext
+): StructuralScanResult {
   const candidates = new Set<Element>();
   const selector = "section, aside, [role='complementary'], [aria-label], [id], [class]";
   if (root instanceof Element && root.matches(selector)) candidates.add(root);
@@ -220,14 +236,28 @@ export function detectGeneric(
     if (candidates.size >= 500) break;
     candidates.add(candidate);
   }
+  const mediaGroups = findMediaCardGroups(root);
+  const mediaContainers = new Set(mediaGroups.map((group) => group.container));
+  for (const group of mediaGroups) candidates.add(group.container);
   const matches: RuleMatch[] = [];
   for (const candidate of candidates) {
     const result = scoreCandidate(candidate, context);
-    if (!result.rejected && result.score >= GENERIC_THRESHOLD) {
-      matches.push({ ruleId: "generic-high-confidence", candidate, score: result.score });
+    if (result.rejected) continue;
+    let score = result.score;
+    if (mediaContainers.has(candidate)) {
+      score += GENERIC_WEIGHTS.repeatedMediaCards;
+      if (context.pageKind === "home" || context.pageKind === "blocked-listing") {
+        score += GENERIC_WEIGHTS.homeOrBlockedListing;
+      }
+      if (context.primaryPlayer && isNear(candidate, context.primaryPlayer)) {
+        score += GENERIC_WEIGHTS.mediaNearPlayer;
+      }
+    }
+    if (score >= GENERIC_THRESHOLD) {
+      matches.push({ ruleId: "generic-high-confidence", candidate, score });
     }
   }
-  return pruneNested(matches);
+  return { matches: pruneNested(matches), observedMediaGroups: mediaGroups.length };
 }
 
 function interfaceTokens(candidate: Element): string {
@@ -258,8 +288,8 @@ function pruneNested(matches: RuleMatch[]): RuleMatch[] {
       !matches.some(
         (other, otherIndex) =>
           otherIndex !== index &&
-          other.candidate.contains(match.candidate) &&
-          other.score >= match.score
+          match.candidate.contains(other.candidate) &&
+          other.candidate !== match.candidate
       )
   );
 }

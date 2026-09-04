@@ -52,8 +52,83 @@ describe("content kernel", () => {
     expect(kernel.getStatus()).toMatchObject({
       state: "active-generic",
       blockedCount: 1,
-      blockedVideoCount: 1
+      blockedVideoCount: 4
     });
+  });
+
+  it("runs structural blocking on a healthy known NoodleMagazine home page", () => {
+    document.body.innerHTML = `<header><form role="search"><input type="search"></form></header>
+      <main><section data-layout="rail">
+        <div class="entry"><a href="/a1"><img alt=""></a></div>
+        <div class="entry"><a href="/a2"><img alt=""></a></div>
+        <div class="entry"><a href="/a3"><img alt=""></a></div>
+      </section></main>`;
+    const kernel = createContentKernel({
+      page: document,
+      url: new URL("https://noodlemagazine.com/"),
+      registry: adapterRegistry,
+      observe: false,
+      inFrame: false
+    });
+
+    kernel.start();
+
+    expect(document.querySelector("[data-layout='rail']")?.hasAttribute("data-afb-hidden")).toBe(
+      true
+    );
+    expect(document.querySelector("form[role='search']")?.closest("[data-afb-hidden]")).toBeNull();
+    expect(kernel.getStatus()).toMatchObject({
+      state: "active-known",
+      adapterId: "noodlemagazine",
+      pageKind: "home",
+      blockedVideoCount: 3
+    });
+  });
+
+  it("preserves structurally identical NoodleMagazine search results", () => {
+    document.body.innerHTML = `<header><form role="search"><input type="search"></form></header>
+      <main id="search-results"><section data-layout="rail">
+        <div class="entry"><a href="/a1"><img alt=""></a></div>
+        <div class="entry"><a href="/a2"><img alt=""></a></div>
+        <div class="entry"><a href="/a3"><img alt=""></a></div>
+      </section></main>`;
+    const kernel = createContentKernel({
+      page: document,
+      url: new URL("https://noodlemagazine.com/search?q=fixture"),
+      registry: adapterRegistry,
+      observe: false,
+      inFrame: false
+    });
+
+    kernel.start();
+
+    expect(document.querySelector("#search-results")?.closest("[data-afb-hidden]")).toBeNull();
+    expect(kernel.getStatus().blockedVideoCount).toBe(0);
+  });
+
+  it("hides an unlabeled NoodleMagazine watch rail without hiding the player", () => {
+    document.body.innerHTML = `<main>
+      <div class="video-player"><video controls></video></div>
+      <section data-layout="rail">
+        <div class="entry"><a href="/a1"><img alt=""></a></div>
+        <div class="entry"><a href="/a2"><img alt=""></a></div>
+        <div class="entry"><a href="/a3"><img alt=""></a></div>
+      </section>
+    </main>`;
+    const kernel = createContentKernel({
+      page: document,
+      url: new URL("https://noodlemagazine.com/video/fixture"),
+      registry: adapterRegistry,
+      observe: false,
+      inFrame: false
+    });
+
+    kernel.start();
+
+    expect(document.querySelector("[data-layout='rail']")?.hasAttribute("data-afb-hidden")).toBe(
+      true
+    );
+    expect(document.querySelector(".video-player")?.closest("[data-afb-hidden]")).toBeNull();
   });
 
   it("replaces the count after a single-page route change", async () => {

@@ -3,9 +3,7 @@ import path from "node:path";
 import { beforeEach, describe, expect, it } from "vitest";
 import catalog from "../../src/adapters/catalog.json" with { type: "json" };
 import { adapterRegistry } from "../../src/adapters/index.js";
-import { Blocker } from "../../src/content/blocker.js";
-import { classifyPage } from "../../src/content/classifier.js";
-import { ProtectionRegistry } from "../../src/content/protection-registry.js";
+import { createContentKernel } from "../../src/content/bootstrap.js";
 
 interface FixtureMetadata {
   adapterId: string;
@@ -34,18 +32,17 @@ describe("launch adapter contract", () => {
         document.open();
         document.write(html);
         document.close();
-        const adapter = adapterRegistry.getAdapterForHostname(new URL(metadata.url).hostname)!;
-        const result = classifyPage(adapter, new URL(metadata.url), document);
-        expect(result.pageKind).toBe(metadata.pageKind);
-        const protection = new ProtectionRegistry();
-        for (const selector of adapter.protectedSelectors[result.pageKind] ?? []) {
-          for (const node of document.querySelectorAll(selector)) protection.register(node);
-        }
-        const blocker = new Blocker(adapter.id, document, protection);
-        blocker.applyRules(document, [
-          ...(adapter.hideSelectors[result.pageKind] ?? []),
-          ...adapter.globalRecommendationSelectors
-        ]);
+        const url = new URL(metadata.url);
+        expect(adapterRegistry.getAdapterForHostname(url.hostname)?.id).toBe(entry.id);
+        const kernel = createContentKernel({
+          page: document,
+          url,
+          registry: adapterRegistry,
+          observe: false,
+          inFrame: false
+        });
+        kernel.start();
+        expect(kernel.getStatus().pageKind).toBe(metadata.pageKind);
         for (const node of document.querySelectorAll('[data-afb-expect="hide"]')) {
           expect(node.hasAttribute("data-afb-hidden")).toBe(true);
         }
@@ -55,6 +52,7 @@ describe("launch adapter contract", () => {
           expect(node.hasAttribute("data-afb-hidden")).toBe(false);
           expect(node.closest("[data-afb-hidden]")).toBeNull();
         }
+        kernel.stop();
       });
     }
   }

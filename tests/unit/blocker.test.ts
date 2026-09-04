@@ -49,4 +49,18 @@ describe("reversible blocker", () => {
     expect(result.totalBlocked).toBe(1);
     expect(document.querySelector("#related")!.hasAttribute("data-afb-hidden")).toBe(true);
   });
+
+  it("does not double-own nested exact and structural matches", () => {
+    const blocker = new Blocker("example", document, new ProtectionRegistry());
+    blocker.blockElements([document.querySelector("#related")!], "exact");
+
+    const result = blocker.blockElements(
+      [document.querySelector("#related .card")!],
+      "structural-high-confidence"
+    );
+
+    expect(result.newlyBlocked).toBe(0);
+    expect(result.totalBlocked).toBe(1);
+    expect(document.querySelector("#related .card")!.hasAttribute("data-afb-hidden")).toBe(false);
+  });
 });

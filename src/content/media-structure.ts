@@ -11,40 +11,44 @@ const CANDIDATE =
   "section, aside, [role='complementary'], [class], [id], [data-layout], [data-testid]";
 const EXCLUDED = "nav, header, footer, form, [role='navigation']";
 const MAX_CANDIDATES = 500;
-const MAX_ANCHORS_PER_CANDIDATE = 80;
+const MAX_ANCHORS = 4_000;
+const MAX_ANCESTOR_DEPTH = 8;
 
 export function isLikelyMediaAnchor(anchor: HTMLAnchorElement): boolean {
-  try {
-    const path = new URL(anchor.href, anchor.ownerDocument.baseURI).pathname;
-    return VIDEO_PATH.test(path) || anchor.querySelector(THUMBNAIL) !== null;
-  } catch {
-    return false;
-  }
+  const href = anchor.getAttribute("href") ?? "";
+  return VIDEO_PATH.test(href) || anchor.querySelector(THUMBNAIL) !== null;
 }
 
 export function findMediaCardGroups(
   root: Document | Element | ShadowRoot
 ): readonly MediaCardGroup[] {
-  const candidates = new Set<Element>();
-  if (root instanceof Element && root.matches(CANDIDATE)) candidates.add(root);
-  for (const candidate of root.querySelectorAll(CANDIDATE)) {
-    if (candidates.size >= MAX_CANDIDATES) break;
-    candidates.add(candidate);
-  }
-
-  const groups: MediaCardGroup[] = [];
-  for (const candidate of candidates) {
-    if (isExcluded(candidate) || isPageShell(candidate)) continue;
-    const cards = new Set<Element>();
-    const anchors = candidate.querySelectorAll<HTMLAnchorElement>("a[href]");
-    for (let index = 0; index < Math.min(anchors.length, MAX_ANCHORS_PER_CANDIDATE); index += 1) {
-      const anchor = anchors[index]!;
-      if (!isLikelyMediaAnchor(anchor)) continue;
-      const card = cardWithinCandidate(anchor, candidate);
-      if (card) cards.add(card);
+  const cardsByCandidate = new Map<Element, Set<Element>>();
+  const anchors = root.querySelectorAll<HTMLAnchorElement>("a[href]");
+  for (let index = 0; index < Math.min(anchors.length, MAX_ANCHORS); index += 1) {
+    const anchor = anchors[index]!;
+    if (anchor.closest(EXCLUDED) || !isLikelyMediaAnchor(anchor)) continue;
+    const closestCard = anchor.closest(CARD);
+    const card = closestCard && rootContains(root, closestCard) ? closestCard : anchor;
+    let candidate: Element | null = card;
+    for (let depth = 0; candidate && depth < MAX_ANCESTOR_DEPTH; depth += 1) {
+      if (
+        candidate.matches(CANDIDATE) &&
+        !isExcluded(candidate) &&
+        !isPageShell(candidate) &&
+        (cardsByCandidate.has(candidate) || cardsByCandidate.size < MAX_CANDIDATES)
+      ) {
+        const cards = cardsByCandidate.get(candidate) ?? new Set<Element>();
+        cards.add(card);
+        cardsByCandidate.set(candidate, cards);
+      }
+      if (candidate === root) break;
+      candidate = candidate.parentElement;
+      if (candidate && !rootContains(root, candidate)) break;
     }
-    if (cards.size >= 3) groups.push({ container: candidate, cards: [...cards] });
   }
+  const groups = [...cardsByCandidate]
+    .filter(([, cards]) => cards.size >= 3)
+    .map(([container, cards]) => ({ container, cards: [...cards] }));
   return preferSmallestCompleteGroups(groups);
 }
 
@@ -59,15 +63,8 @@ function isPageShell(candidate: Element): boolean {
   );
 }
 
-function cardWithinCandidate(anchor: HTMLAnchorElement, candidate: Element): Element | null {
-  const closest = anchor.closest(CARD);
-  if (closest && closest !== candidate && candidate.contains(closest)) return closest;
-
-  let directChild: Element = anchor;
-  while (directChild.parentElement && directChild.parentElement !== candidate) {
-    directChild = directChild.parentElement;
-  }
-  return directChild === candidate ? null : directChild;
+function rootContains(root: Document | Element | ShadowRoot, candidate: Element): boolean {
+  return root === candidate || root.contains(candidate);
 }
 
 function preferSmallestCompleteGroups(groups: readonly MediaCardGroup[]): MediaCardGroup[] {

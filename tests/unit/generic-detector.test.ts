@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it } from "vitest";
 import {
   classifyGenericPage,
   detectGeneric,
-  registerGenericProtectedRoots
+  registerGenericProtectedRoots,
+  scanRecommendations
 } from "../../src/content/generic-detector.js";
 import { ProtectionRegistry } from "../../src/content/protection-registry.js";
 
@@ -61,5 +62,35 @@ describe("generic recommendation detection", () => {
         protection: new ProtectionRegistry()
       })
     ).toEqual([]);
+  });
+
+  it("recognizes an unlabeled repeated thumbnail group on a home page", () => {
+    document.body.innerHTML = `<main><section id="rail" data-layout="rail">
+      <div class="entry"><a href="/a1"><img alt=""></a></div>
+      <div class="entry"><a href="/a2"><img alt=""></a></div>
+      <div class="entry"><a href="/a3"><img alt=""></a></div>
+    </section></main>`;
+
+    const result = scanRecommendations(document, {
+      pageKind: "home",
+      protection: new ProtectionRegistry()
+    });
+    expect(result.observedMediaGroups).toBe(1);
+    expect(result.matches.map((match) => match.candidate.id)).toEqual(["rail"]);
+  });
+
+  it("preserves the same unlabeled group on an unknown page", () => {
+    document.body.innerHTML = `<section id="rail" data-layout="rail">
+      <div class="entry"><a href="/a1"><img alt=""></a></div>
+      <div class="entry"><a href="/a2"><img alt=""></a></div>
+      <div class="entry"><a href="/a3"><img alt=""></a></div>
+    </section>`;
+
+    const result = scanRecommendations(document, {
+      pageKind: "unknown",
+      protection: new ProtectionRegistry()
+    });
+    expect(result.observedMediaGroups).toBe(1);
+    expect(result.matches).toEqual([]);
   });
 });

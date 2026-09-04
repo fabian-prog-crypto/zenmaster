@@ -9,9 +9,10 @@ import { Blocker } from "./blocker.js";
 import { classifyPage } from "./classifier.js";
 import {
   classifyGenericPage,
-  detectGeneric,
   registerGenericProtectedRoots,
-  type GenericPageContext
+  scanRecommendations,
+  type GenericPageContext,
+  type StructuralScanResult
 } from "./generic-detector.js";
 import { MutationController } from "./mutation-controller.js";
 import { ProtectionRegistry } from "./protection-registry.js";
@@ -80,20 +81,37 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
     ...currentAdapter.globalRecommendationSelectors
   ];
 
+  const structuralContextForKnown = (kind: PageKind): GenericPageContext => {
+    if (kind !== "watch") return { pageKind: kind };
+    const primaryPlayer = options.page.querySelector(
+      "video, [data-player], [class*='video-player' i], [id*='player' i]"
+    );
+    return primaryPlayer ? { pageKind: kind, primaryPlayer } : { pageKind: kind };
+  };
+
+  const applyStructural = (
+    root: Document | Element | ShadowRoot,
+    context: GenericPageContext,
+    ruleId: "generic-high-confidence" | "structural-high-confidence"
+  ): StructuralScanResult => {
+    registerGenericProtectedRoots(options.page, context, protection);
+    if (context.pageKind === "restricted") return { matches: [], observedMediaGroups: 0 };
+    const scan = scanRecommendations(root, {
+      pageKind: context.pageKind,
+      protection,
+      ...(context.primaryPlayer ? { primaryPlayer: context.primaryPlayer } : {})
+    });
+    blocker?.blockElements(
+      scan.matches.map((match) => match.candidate),
+      ruleId
+    );
+    return scan;
+  };
+
   const applyGeneric = (root: Document | Element | ShadowRoot) => {
     genericContext = classifyGenericPage(currentUrl(), options.page);
     pageKind = genericContext.pageKind;
-    registerGenericProtectedRoots(options.page, genericContext, protection);
-    if (genericContext.pageKind === "restricted") return;
-    const matches = detectGeneric(root, {
-      pageKind: genericContext.pageKind,
-      protection,
-      ...(genericContext.primaryPlayer ? { primaryPlayer: genericContext.primaryPlayer } : {})
-    });
-    blocker?.blockElements(
-      matches.map((match) => match.candidate),
-      "generic-high-confidence"
-    );
+    return applyStructural(root, genericContext, "generic-high-confidence");
   };
 
   const processInserted = (root: Element | ShadowRoot) => {
@@ -101,6 +119,18 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
       registerKnownProtection(adapter, pageKind);
       const result = blocker?.applyRules(root, exactRules(adapter, pageKind));
       if (result?.errors.length) status = { ...status, state: "needs-update" };
+      const scan = applyStructural(
+        root,
+        structuralContextForKnown(pageKind),
+        "structural-high-confidence"
+      );
+      if (
+        scan.observedMediaGroups > 0 &&
+        blocker?.totalBlocked === 0 &&
+        ["home", "blocked-listing", "watch"].includes(pageKind)
+      ) {
+        status = { ...status, state: "needs-update" };
+      }
     } else {
       applyGeneric(root);
     }
@@ -156,12 +186,23 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
     registerKnownProtection(adapter, pageKind);
     const result = blocker.applyRules(options.page, exactRules(adapter, pageKind));
     let degraded = classification.degraded || result.errors.length > 0;
+    const structuralScan = applyStructural(
+      options.page,
+      structuralContextForKnown(pageKind),
+      "structural-high-confidence"
+    );
     if (options.page.readyState !== "loading") {
       for (const check of adapter.healthChecks[pageKind] ?? []) {
         if (check.required && !options.page.querySelector(check.selector)) degraded = true;
       }
     }
-    if (classification.degraded || pageKind === "unknown") applyGeneric(options.page);
+    if (
+      structuralScan.observedMediaGroups > 0 &&
+      blocker.totalBlocked === 0 &&
+      ["home", "blocked-listing", "watch"].includes(pageKind)
+    ) {
+      degraded = true;
+    }
     const autoResult = autoAdvance.apply(adapter.disableAutoAdvance);
     if (autoResult.errors.length) degraded = true;
     publish({
