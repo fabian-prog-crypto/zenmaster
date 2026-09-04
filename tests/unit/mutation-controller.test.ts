@@ -62,4 +62,26 @@ describe("mutation controller", () => {
     expect(processed).toEqual([section]);
     controller.stop();
   });
+
+  it("reprocesses an existing feed container when cards are inserted", async () => {
+    document.body.innerHTML = `<section id="rail"></section>`;
+    const processed: Array<Document | Element | ShadowRoot> = [];
+    const controller = new MutationController(document, (root) => processed.push(root), {
+      requestFrame: (callback) => callback(0),
+      requestIdle: (callback) => callback({ didTimeout: false, timeRemaining: () => 10 }),
+      now: () => 0,
+      maxRoots: 100
+    });
+    controller.start();
+    const rail = document.querySelector("#rail")!;
+    rail.append(
+      document.createElement("article"),
+      document.createElement("article"),
+      document.createElement("article")
+    );
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(processed).toEqual([rail]);
+    controller.stop();
+  });
 });

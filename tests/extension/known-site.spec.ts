@@ -25,6 +25,17 @@ test("registers persistent built-in scripts and hides watch recommendations", as
     )
     .toBe(2);
 
+  const builtInMatches = await extension!.worker.evaluate(async () => {
+    const scripts = await chrome.scripting.getRegisteredContentScripts({
+      ids: ["afb_builtin_isolated"]
+    });
+    return scripts[0]?.matches ?? [];
+  });
+  expect(builtInMatches).toContain("https://*.xhamster.desi/*");
+  expect(builtInMatches).toContain("https://*.pornhub.org/*");
+  expect(builtInMatches).not.toContain("<all_urls>");
+  expect(builtInMatches).not.toContain("https://*/*");
+
   const fixture = await readFile(
     path.join(process.cwd(), "tests/fixtures/pornhub/watch.html"),
     "utf8"
@@ -56,6 +67,30 @@ test("registers persistent built-in scripts and hides watch recommendations", as
       })
     )
     .toBe("7");
+});
+
+test("hides opaque Noodle recommendations and creator paths", async () => {
+  const fixture = await readFile(
+    path.join(process.cwd(), "tests/fixtures/noodlemagazine/watch.html"),
+    "utf8"
+  );
+  const page = await extension!.context.newPage();
+  await page.route("https://noodlemagazine.com/**", (route) =>
+    route.fulfill({ status: 200, contentType: "text/html", body: fixture })
+  );
+  await page.goto("https://noodlemagazine.com/video/afb-fixture");
+
+  await expect(page.locator("[data-layout='rail']")).toHaveAttribute(
+    "data-afb-hidden",
+    /structural-high-confidence/
+  );
+  await expect(page.locator(".uploader-info")).toHaveAttribute("data-afb-hidden", /creator-path/);
+  await expect(page.locator("[data-afb-expect='neutralize']")).toHaveAttribute(
+    "data-afb-link-neutralized",
+    "creator-path"
+  );
+  await expect(page.locator(".video-player")).not.toHaveAttribute("data-afb-hidden", /.*/);
+  await expect(page.locator("video")).toBeAttached();
 });
 
 test("uses the Pornhub adapter on the German hostname without hiding the page shell", async () => {

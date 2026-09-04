@@ -52,9 +52,15 @@ export class MutationController {
   #observe(root: Document | ShadowRoot): void {
     const observer = new MutationObserver((records) => {
       for (const record of records) {
+        const contextualRoot =
+          record.target instanceof Element &&
+          !record.target.matches("html, body, main, [role='main']")
+            ? record.target
+            : undefined;
+        if (record.addedNodes.length > 0 && contextualRoot) this.#enqueue(contextualRoot);
         for (const node of record.addedNodes) {
           if (!(node instanceof Element)) continue;
-          this.#enqueue(node);
+          if (!contextualRoot) this.#enqueue(node);
           this.#discoverShadowRoots(node);
         }
         if (record.removedNodes.length > 0) {

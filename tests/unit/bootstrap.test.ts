@@ -187,6 +187,40 @@ describe("content kernel", () => {
     kernel.stop();
   });
 
+  it("blocks and counts recommendations inserted card-by-card into an existing rail", async () => {
+    document.body.innerHTML = `<main>
+      <div class="video-player"><video controls></video></div>
+      <section id="dynamic-rail" data-layout="rail"></section>
+    </main>`;
+    const updates: PageStatus[] = [];
+    const kernel = createContentKernel({
+      page: document,
+      url: new URL("https://noodlemagazine.com/video/fixture"),
+      registry: adapterRegistry,
+      observe: true,
+      inFrame: false,
+      onStatusChange: (status) => updates.push(status)
+    });
+    kernel.start();
+
+    document.querySelector("#dynamic-rail")!.insertAdjacentHTML(
+      "beforeend",
+      `<div class="entry"><a href="/a1"><span data-thumbnail></span></a></div>
+       <div class="entry"><a href="/a2"><span data-thumbnail></span></a></div>
+       <div class="entry"><a href="/a3"><span data-thumbnail></span></a></div>`
+    );
+    const uploader = document.createElement("div");
+    uploader.className = "uploader-info";
+    uploader.innerHTML = `<a href="/profile/fixture">[creator]</a>`;
+    document.querySelector("main")!.append(uploader);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+
+    expect(document.querySelector("#dynamic-rail")?.hasAttribute("data-afb-hidden")).toBe(true);
+    expect(uploader.hasAttribute("data-afb-hidden")).toBe(true);
+    expect(updates.at(-1)?.blockedVideoCount).toBe(3);
+    kernel.stop();
+  });
+
   it("replaces the count after a single-page route change", async () => {
     history.replaceState({}, "", "/video/with-recommendations");
     document.body.innerHTML = `<main>
