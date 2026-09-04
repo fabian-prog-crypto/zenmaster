@@ -104,7 +104,12 @@ async function initializePopup(): Promise<void> {
           render();
           return;
         }
-        status = { state: "active-generic", blockedCount: 0, autoAdvanceBlocked: false };
+        status = {
+          state: "active-generic",
+          blockedCount: 0,
+          blockedVideoCount: 0,
+          autoAdvanceBlocked: false
+        };
         render();
         const live = root.querySelector<HTMLElement>("[data-live]");
         if (live)
@@ -117,7 +122,7 @@ async function initializePopup(): Promise<void> {
 }
 
 function emptyStatus(state: PageStatus["state"]): PageStatus {
-  return { state, blockedCount: 0, autoAdvanceBlocked: false };
+  return { state, blockedCount: 0, blockedVideoCount: 0, autoAdvanceBlocked: false };
 }
 
 function safeUrl(input: string | undefined): URL | undefined {

@@ -12,6 +12,7 @@ describe("popup", () => {
       adapterId: "pornhub",
       pageKind: "watch",
       blockedCount: 4,
+      blockedVideoCount: 4,
       autoAdvanceBlocked: true
     });
     expect(document.body.textContent).toContain("Zen mode is on");
@@ -26,6 +27,7 @@ describe("popup", () => {
     renderPopup(document.querySelector("#app")!, {
       state: "unsupported",
       blockedCount: 0,
+      blockedVideoCount: 0,
       autoAdvanceBlocked: false
     });
     expect(document.querySelector("[data-action='add-site']")?.textContent).toBe(

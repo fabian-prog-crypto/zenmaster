@@ -15,6 +15,7 @@ import {
 } from "./generic-detector.js";
 import { MutationController } from "./mutation-controller.js";
 import { ProtectionRegistry } from "./protection-registry.js";
+import { countRecommendationCards } from "./recommendation-counter.js";
 import { RouteController } from "./route-controller.js";
 
 export interface ContentKernelOptions {
@@ -24,6 +25,7 @@ export interface ContentKernelOptions {
   observe: boolean;
   inFrame: boolean;
   sameOriginFrame?: boolean;
+  onStatusChange?: (status: PageStatus) => void;
 }
 
 export interface ContentKernel {
@@ -45,11 +47,23 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
   let status: PageStatus = {
     state: "unsupported",
     blockedCount: 0,
+    blockedVideoCount: 0,
     autoAdvanceBlocked: false
   };
   let started = false;
 
   const currentUrl = () => (options.url instanceof URL ? options.url : options.url());
+
+  const publish = (next: Omit<PageStatus, "blockedVideoCount">) => {
+    status = {
+      ...next,
+      blockedVideoCount: countRecommendationCards(
+        blocker?.hiddenRoots ?? [],
+        adapter?.recommendationCardSelectors
+      )
+    };
+    options.onStatusChange?.({ ...status });
+  };
 
   const registerKnownProtection = (currentAdapter: SiteAdapter, kind: PageKind) => {
     for (const selector of currentAdapter.protectedSelectors[kind] ?? []) {
@@ -90,7 +104,13 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
     } else {
       applyGeneric(root);
     }
-    status = { ...status, pageKind, blockedCount: blocker?.totalBlocked ?? 0 };
+    publish({
+      state: status.state,
+      ...(status.adapterId ? { adapterId: status.adapterId } : {}),
+      pageKind,
+      blockedCount: blocker?.totalBlocked ?? 0,
+      autoAdvanceBlocked: status.autoAdvanceBlocked
+    });
   };
 
   const initialize = () => {
@@ -104,19 +124,19 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
       options.inFrame &&
       (!adapter || adapter.frameSupport === "top-only" || options.sameOriginFrame !== true)
     ) {
-      status = { state: "restricted", blockedCount: 0, autoAdvanceBlocked: false };
+      publish({ state: "restricted", blockedCount: 0, autoAdvanceBlocked: false });
       return;
     }
 
     if (!adapter) {
       blocker = new Blocker("generic", options.page, protection);
       applyGeneric(options.page);
-      status = {
+      publish({
         state: genericContext.pageKind === "restricted" ? "restricted" : "active-generic",
         pageKind: genericContext.pageKind,
         blockedCount: blocker.totalBlocked,
         autoAdvanceBlocked: false
-      };
+      });
       return;
     }
 
@@ -124,13 +144,13 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
     pageKind = classification.pageKind;
     blocker = new Blocker(adapter.id, options.page, protection);
     if (pageKind === "restricted") {
-      status = {
+      publish({
         state: "restricted",
         adapterId: adapter.id,
         pageKind,
         blockedCount: 0,
         autoAdvanceBlocked: false
-      };
+      });
       return;
     }
     registerKnownProtection(adapter, pageKind);
@@ -144,13 +164,13 @@ export function createContentKernel(options: ContentKernelOptions): ContentKerne
     if (classification.degraded || pageKind === "unknown") applyGeneric(options.page);
     const autoResult = autoAdvance.apply(adapter.disableAutoAdvance);
     if (autoResult.errors.length) degraded = true;
-    status = {
+    publish({
       state: degraded || pageKind === "unknown" ? "needs-update" : "active-known",
       adapterId: adapter.id,
       pageKind,
       blockedCount: blocker.totalBlocked,
       autoAdvanceBlocked: autoResult.blocked
-    };
+    });
   };
 
   return {

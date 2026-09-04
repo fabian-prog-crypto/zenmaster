@@ -13,5 +13,6 @@ export interface PageStatus {
   adapterId?: string;
   pageKind?: PageKind;
   blockedCount: number;
+  blockedVideoCount: number;
   autoAdvanceBlocked: boolean;
 }
