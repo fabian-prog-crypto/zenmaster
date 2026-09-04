@@ -1,3 +1,5 @@
+import { findMediaCardGroups } from "./media-structure.js";
+
 const VIDEO_PATH = /(?:\/view_video\.php|\/videos?(?:\/|$)|\/watch(?:\/|$)|\/v\/)/i;
 
 const DEFAULT_CARD_SELECTORS = [
@@ -26,6 +28,12 @@ export function countRecommendationCards(
       if (!card || (card !== root && !root.contains(card))) continue;
       cards.add(card);
       foundInRoot = true;
+    }
+    if (!foundInRoot) {
+      for (const group of findMediaCardGroups(root)) {
+        for (const card of group.cards) cards.add(card);
+        foundInRoot = true;
+      }
     }
     if (!foundInRoot && hasLikelyVideoLink(root)) cards.add(root);
   }

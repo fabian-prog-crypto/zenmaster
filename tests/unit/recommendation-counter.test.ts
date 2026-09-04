@@ -37,4 +37,14 @@ describe("recommendation card counter", () => {
     document.body.innerHTML = `<aside data-afb-hidden><a href="https://example.test/profile/one">profile</a></aside>`;
     expect(countRecommendationCards([document.querySelector("aside")!], ["article"])).toBe(0);
   });
+
+  it("counts opaque repeated thumbnail cards once each", () => {
+    document.body.innerHTML = `<section data-afb-hidden data-layout="rail">
+      <div class="entry"><a href="/a1"><img alt=""></a><a href="/a1">[title]</a></div>
+      <div class="entry"><a href="/a2"><img alt=""></a><a href="/a2">[title]</a></div>
+      <div class="entry"><a href="/a3"><img alt=""></a><a href="/a3">[title]</a></div>
+    </section>`;
+
+    expect(countRecommendationCards([document.querySelector("section")!], [".missing"])).toBe(3);
+  });
 });
