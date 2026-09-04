@@ -1,4 +1,5 @@
 import catalogJson from "../adapters/catalog.json" with { type: "json" };
+import { hostnameMatchesDomainRoot } from "../adapters/domain-roots.js";
 import type { CatalogEntry } from "../adapters/types.js";
 import {
   normalizeCustomSite,
@@ -10,9 +11,7 @@ import type { ChromeApi } from "./chrome-api.js";
 import { customRegistrationsForOrigin, registrationIdsForOrigin } from "./registrations.js";
 
 const catalog = catalogJson as readonly CatalogEntry[];
-const builtInHosts = new Set(
-  catalog.flatMap((entry) => entry.domainRoots.flatMap((hostname) => [hostname, `www.${hostname}`]))
-);
+const builtInRoots = catalog.flatMap((entry) => entry.domainRoots);
 
 export type AddSiteResult =
   | { ok: true; alreadyProtected: boolean; reloadRequired: boolean }
@@ -28,7 +27,7 @@ export async function addCustomSite(
   } catch {
     return { ok: false, error: "invalid-origin" };
   }
-  if (builtInHosts.has(normalized.hostname)) {
+  if (builtInRoots.some((root) => hostnameMatchesDomainRoot(normalized.hostname, root))) {
     return { ok: true, alreadyProtected: true, reloadRequired: false };
   }
 

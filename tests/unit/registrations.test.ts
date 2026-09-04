@@ -1,11 +1,22 @@
 import { describe, expect, it } from "vitest";
 import {
+  builtInPatterns,
   reconcileRegistrations,
   registrationIdsForOrigin
 } from "../../src/background/registrations.js";
 import { createChromeFake } from "../helpers/chrome-fake.js";
 
 describe("content script registrations", () => {
+  it("registers one bounded wildcard pattern per verified domain root", () => {
+    const patterns = builtInPatterns();
+    expect(patterns).toContain("https://*.xhamster.desi/*");
+    expect(patterns).toContain("https://*.pornhub.org/*");
+    expect(patterns).not.toContain("https://ge.xhamster.desi/*");
+    expect(patterns).not.toContain("<all_urls>");
+    expect(patterns).not.toContain("https://*/*");
+    expect(new Set(patterns).size).toBe(patterns.length);
+  });
+
   it("derives private deterministic IDs from scheme and host", async () => {
     const first = await registrationIdsForOrigin("https://www.example.com/*");
     const again = await registrationIdsForOrigin("https://www.example.com/*");

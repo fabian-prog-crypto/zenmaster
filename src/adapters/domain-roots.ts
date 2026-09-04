@@ -23,6 +23,10 @@ export function rootsOverlap(first: string, second: string): boolean {
   return hostnameMatchesDomainRoot(first, second) || hostnameMatchesDomainRoot(second, first);
 }
 
+export function httpsPatternForDomainRoot(root: string): string {
+  return `https://*.${normalizeDomainRoot(root)}/*`;
+}
+
 export function validateDomainOwnership(adapters: readonly SiteAdapter[]): void {
   const claimed: Array<{ adapterId: string; root: string }> = [];
   for (const adapter of adapters) {

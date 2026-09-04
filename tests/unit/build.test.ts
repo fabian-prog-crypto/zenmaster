@@ -3,11 +3,12 @@ import { readFile, stat } from "node:fs/promises";
 import { promisify } from "node:util";
 import { inflateSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
+import catalog from "../../src/adapters/catalog.json" with { type: "json" };
 
 const execFileAsync = promisify(execFile);
 
 describe("Manifest V3 build", () => {
-  it("generates only the approved permissions and 105 persistent host patterns", async () => {
+  it("generates only bounded wildcard permissions for verified domain roots", async () => {
     await execFileAsync(process.execPath, ["scripts/build.mjs"]);
     const manifest = JSON.parse(await readFile("dist/manifest.json", "utf8")) as {
       manifest_version: number;
@@ -26,12 +27,14 @@ describe("Manifest V3 build", () => {
     expect(manifest.name).toBe("Zen Master");
     expect([...manifest.permissions].sort()).toEqual(["activeTab", "scripting", "storage"]);
     expect(manifest.optional_host_permissions).toEqual(["http://*/*", "https://*/*"]);
-    expect(manifest.host_permissions).toHaveLength(105);
-    expect(manifest.host_permissions).toContain("https://pornhub.com/*");
-    expect(manifest.host_permissions).toContain("https://www.pornhub.com/*");
-    expect(manifest.host_permissions).toContain("https://de.pornhub.org/*");
-    expect(manifest.host_permissions).toContain("https://txxx.tube/*");
-    expect(manifest.host_permissions).not.toContain("https://www.txxx.tube/*");
+    const rootCount = catalog.reduce((count, entry) => count + entry.domainRoots.length, 0);
+    expect(manifest.host_permissions).toHaveLength(rootCount);
+    expect(manifest.host_permissions).toContain("https://*.pornhub.com/*");
+    expect(manifest.host_permissions).toContain("https://*.pornhub.org/*");
+    expect(manifest.host_permissions).toContain("https://*.xhamster.desi/*");
+    expect(manifest.host_permissions).toContain("https://*.txxx.tube/*");
+    expect(manifest.host_permissions).not.toContain("https://*/*");
+    expect(manifest.host_permissions).not.toContain("<all_urls>");
     expect(manifest.background).toEqual({
       service_worker: "background/service-worker.js",
       type: "module"

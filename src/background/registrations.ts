@@ -1,4 +1,5 @@
 import catalogJson from "../adapters/catalog.json" with { type: "json" };
+import { httpsPatternForDomainRoot } from "../adapters/domain-roots.js";
 import type { CatalogEntry } from "../adapters/types.js";
 import { originPatternFor, parseStoredState, type StoredCustomSite } from "../shared/storage.js";
 import type { ChromeApi, RegisteredScriptConfig } from "./chrome-api.js";
@@ -23,14 +24,7 @@ export async function registrationIdsForOrigin(pattern: string): Promise<Registr
 }
 
 export function builtInPatterns(): string[] {
-  return catalog
-    .flatMap((entry) =>
-      entry.domainRoots.flatMap((hostname) => [
-        `https://${hostname}/*`,
-        `https://www.${hostname}/*`
-      ])
-    )
-    .sort();
+  return catalog.flatMap((entry) => entry.domainRoots.map(httpsPatternForDomainRoot)).sort();
 }
 
 export async function customRegistrationsForOrigin(

@@ -1,23 +1,14 @@
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { build } from "esbuild";
+import { hostPatternsFromCatalog } from "./catalog-domain-roots.mjs";
 
 const root = process.cwd();
 const dist = path.join(root, "dist");
 const catalog = JSON.parse(await readFile(path.join(root, "src/adapters/catalog.json"), "utf8"));
 const manifestBase = JSON.parse(await readFile(path.join(root, "src/manifest.base.json"), "utf8"));
 
-const hostPermissions = catalog
-  .flatMap(({ primaryHostname, aliases }) => [
-    `https://${primaryHostname}/*`,
-    `https://www.${primaryHostname}/*`,
-    ...aliases.map((hostname) => `https://${hostname}/*`)
-  ])
-  .toSorted();
-
-if (hostPermissions.length !== 105 || new Set(hostPermissions).size !== 105) {
-  throw new Error(`Expected 105 unique built-in host patterns, got ${hostPermissions.length}`);
-}
+const hostPermissions = hostPatternsFromCatalog(catalog);
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });

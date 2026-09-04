@@ -1,17 +1,12 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
+import { hostPatternsFromCatalog } from "./catalog-domain-roots.mjs";
 
 const root = process.cwd();
 const dist = path.join(root, "dist");
 const manifest = JSON.parse(await readFile(path.join(dist, "manifest.json"), "utf8"));
 const catalog = JSON.parse(await readFile(path.join(root, "src/adapters/catalog.json"), "utf8"));
-const expectedHosts = catalog
-  .flatMap(({ primaryHostname, aliases }) => [
-    `https://${primaryHostname}/*`,
-    `https://www.${primaryHostname}/*`,
-    ...aliases.map((hostname) => `https://${hostname}/*`)
-  ])
-  .sort();
+const expectedHosts = hostPatternsFromCatalog(catalog);
 
 assertEqual(
   [...manifest.permissions].sort(),

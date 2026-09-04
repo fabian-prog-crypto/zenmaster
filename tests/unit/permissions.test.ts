@@ -3,6 +3,16 @@ import { addCustomSite, removeCustomSite } from "../../src/background/permission
 import { createChromeFake } from "../helpers/chrome-fake.js";
 
 describe("custom site permission lifecycle", () => {
+  it("recognizes a built-in regional subdomain without requesting permission", async () => {
+    const api = createChromeFake();
+    const result = await addCustomSite(api, {
+      tabId: 7,
+      origin: "https://ge.xhamster.desi/watch/example"
+    });
+    expect(result).toEqual({ ok: true, alreadyProtected: true, reloadRequired: false });
+    expect(api.calls.some((call) => call.startsWith("permissions.request"))).toBe(false);
+  });
+
   it("requests permission before any asynchronous API and activates the current tab", async () => {
     const api = createChromeFake();
     const result = await addCustomSite(api, { tabId: 7, origin: "https://Example.com/watch?q=x" });
