@@ -13,10 +13,14 @@ export function createChromeFake(options: { permissionGranted?: boolean } = {}) 
   const registrations = new Map<string, FakeRegistration>();
   const granted = new Set<string>();
   const calls: string[] = [];
+  let actionIconPaths: Readonly<Record<string, string>> | undefined;
   return {
     calls,
     registrations,
     granted,
+    get actionIconPaths() {
+      return actionIconPaths;
+    },
     setStored(value: unknown) {
       stored = value;
     },
@@ -60,6 +64,10 @@ export function createChromeFake(options: { permissionGranted?: boolean } = {}) 
     },
     async executeScript(_tabId: number, _file: string, world: "ISOLATED" | "MAIN") {
       calls.push(`scripting.execute:${world}`);
+    },
+    async setActionIcon(paths: Readonly<Record<string, string>>) {
+      calls.push("action.icon");
+      actionIconPaths = paths;
     },
     async setBadgeText(tabId: number, text: string) {
       calls.push(`action.badgeText:${tabId}:${text}`);

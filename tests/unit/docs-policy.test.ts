@@ -13,7 +13,7 @@ describe("documentation policy", () => {
     expect(readme).toContain("Search results remain available");
     expect(privacy).toContain("No telemetry");
     expect(privacy).toContain("chrome.storage.local");
-    expect(changelog).toContain("0.1.0");
+    expect(changelog).toContain("0.1.1");
     expect(changelog).toContain("Ruleset 1");
     expect(smoke.match(/^\|\s*`[^`]+`\s*\|/gm) ?? []).toHaveLength(50);
   });

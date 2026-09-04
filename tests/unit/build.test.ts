@@ -10,6 +10,7 @@ describe("Manifest V3 build", () => {
     await execFileAsync(process.execPath, ["scripts/build.mjs"]);
     const manifest = JSON.parse(await readFile("dist/manifest.json", "utf8")) as {
       manifest_version: number;
+      version: string;
       name: string;
       permissions: string[];
       host_permissions: string[];
@@ -20,6 +21,7 @@ describe("Manifest V3 build", () => {
     };
 
     expect(manifest.manifest_version).toBe(3);
+    expect(manifest.version).toBe("0.1.1");
     expect(manifest.name).toBe("Zen Master");
     expect([...manifest.permissions].sort()).toEqual(["activeTab", "scripting", "storage"]);
     expect(manifest.optional_host_permissions).toEqual(["http://*/*", "https://*/*"]);
@@ -45,5 +47,7 @@ describe("Manifest V3 build", () => {
     expect(iconSource).not.toContain("Apple Color Emoji");
     const contentBundle = await readFile("dist/content/bootstrap.js", "utf8");
     expect(contentBundle).not.toMatch(/^export\s/m);
+    const backgroundBundle = await readFile("dist/background/service-worker.js", "utf8");
+    expect(backgroundBundle).toContain("action.setIcon");
   });
 });

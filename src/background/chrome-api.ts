@@ -19,6 +19,7 @@ export interface ChromeApi {
   updateContentScripts(scripts: RegisteredScriptConfig[]): Promise<void>;
   unregisterContentScripts(ids: string[]): Promise<void>;
   executeScript(tabId: number, file: string, world: "ISOLATED" | "MAIN"): Promise<void>;
+  setActionIcon(paths: Readonly<Record<string, string>>): Promise<void>;
   setBadgeText(tabId: number, text: string): Promise<void>;
   setBadgeBackgroundColor(tabId: number, color: string): Promise<void>;
 }
@@ -69,6 +70,9 @@ export function createChromeApi(): ChromeApi {
         world,
         injectImmediately: true
       });
+    },
+    setActionIcon(paths) {
+      return chrome.action.setIcon({ path: paths });
     },
     setBadgeText(tabId, text) {
       return chrome.action.setBadgeText({ tabId, text });

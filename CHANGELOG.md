@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — Ruleset 1
+
+### Repaired
+
+- Refreshes the toolbar action icon explicitly when the unpacked extension reloads, avoiding a stale manifest-icon cache.
+
 ## 0.1.0 — Ruleset 1
 
 ### Added

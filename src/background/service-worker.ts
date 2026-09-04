@@ -3,6 +3,7 @@ import { RULESET_VERSION } from "../adapters/ruleset-version.js";
 import type { CatalogEntry } from "../adapters/types.js";
 import { parseMessage } from "../shared/messages.js";
 import { parseStoredState } from "../shared/storage.js";
+import { refreshActionIcon } from "./action-icon.js";
 import { getBadgeTabId, setTabBadge } from "./badge.js";
 import { createChromeApi } from "./chrome-api.js";
 import { addCustomSite, removeCustomSite } from "./permissions.js";
@@ -63,13 +64,18 @@ chrome.runtime.onMessage.addListener((raw, sender, sendResponse) => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-  void reconcileRegistrations(api);
+  initializeExtension();
 });
 chrome.runtime.onStartup.addListener(() => {
-  void reconcileRegistrations(api);
+  initializeExtension();
 });
 chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
   if (changeInfo.status === "loading") void setTabBadge(api, tabId, 0).catch(() => undefined);
 });
 
-void reconcileRegistrations(api);
+function initializeExtension(): void {
+  void reconcileRegistrations(api);
+  void refreshActionIcon(api).catch(() => undefined);
+}
+
+initializeExtension();
