@@ -1,5 +1,6 @@
 export type Request =
   | { version: 1; type: "GET_PAGE_STATUS" }
+  | { version: 1; type: "SET_TAB_BADGE"; count: number }
   | { version: 1; type: "ADD_CURRENT_SITE"; tabId: number; origin: string }
   | { version: 1; type: "LIST_SETTINGS" }
   | { version: 1; type: "REMOVE_CUSTOM_SITE"; scheme: "http" | "https"; hostname: string };
@@ -18,6 +19,14 @@ export function parseMessage(input: unknown): ParsedMessage {
       return hasKeys(input, ["version", "type", "tabId", "origin"]) &&
         Number.isInteger(input.tabId) &&
         typeof input.origin === "string"
+        ? { ok: true, value: input as Request }
+        : invalid();
+    case "SET_TAB_BADGE":
+      return hasKeys(input, ["version", "type", "count"]) &&
+        Number.isInteger(input.count) &&
+        typeof input.count === "number" &&
+        input.count >= 0 &&
+        input.count <= 1_000_000
         ? { ok: true, value: input as Request }
         : invalid();
     case "REMOVE_CUSTOM_SITE":

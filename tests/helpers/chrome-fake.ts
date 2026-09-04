@@ -60,6 +60,12 @@ export function createChromeFake(options: { permissionGranted?: boolean } = {}) 
     },
     async executeScript(_tabId: number, _file: string, world: "ISOLATED" | "MAIN") {
       calls.push(`scripting.execute:${world}`);
+    },
+    async setBadgeText(tabId: number, text: string) {
+      calls.push(`action.badgeText:${tabId}:${text}`);
+    },
+    async setBadgeBackgroundColor(tabId: number, color: string) {
+      calls.push(`action.badgeColor:${tabId}:${color}`);
     }
   };
 }

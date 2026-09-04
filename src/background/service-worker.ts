@@ -3,6 +3,7 @@ import { RULESET_VERSION } from "../adapters/ruleset-version.js";
 import type { CatalogEntry } from "../adapters/types.js";
 import { parseMessage } from "../shared/messages.js";
 import { parseStoredState } from "../shared/storage.js";
+import { getBadgeTabId, setTabBadge } from "./badge.js";
 import { createChromeApi } from "./chrome-api.js";
 import { addCustomSite, removeCustomSite } from "./permissions.js";
 import { reconcileRegistrations } from "./registrations.js";
@@ -18,11 +19,26 @@ function isPrivilegedSender(sender: chrome.runtime.MessageSender): boolean {
 
 chrome.runtime.onMessage.addListener((raw, sender, sendResponse) => {
   const parsed = parseMessage(raw);
-  if (!parsed.ok || !isPrivilegedSender(sender)) {
+  if (!parsed.ok) {
     sendResponse({ ok: false, error: "invalid-message" });
     return false;
   }
   const request = parsed.value;
+  if (request.type === "SET_TAB_BADGE") {
+    const tabId = getBadgeTabId(sender, chrome.runtime.id);
+    if (tabId === undefined) {
+      sendResponse({ ok: false, error: "invalid-message" });
+      return false;
+    }
+    void setTabBadge(api, tabId, request.count)
+      .then(() => sendResponse({ ok: true }))
+      .catch(() => sendResponse({ ok: false, error: "operation-failed" }));
+    return true;
+  }
+  if (!isPrivilegedSender(sender)) {
+    sendResponse({ ok: false, error: "invalid-message" });
+    return false;
+  }
   if (request.type === "GET_PAGE_STATUS") return false;
 
   let result: Promise<unknown>;
@@ -51,6 +67,9 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 chrome.runtime.onStartup.addListener(() => {
   void reconcileRegistrations(api);
+});
+chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  if (changeInfo.status === "loading") void setTabBadge(api, tabId, 0).catch(() => undefined);
 });
 
 void reconcileRegistrations(api);

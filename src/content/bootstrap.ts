@@ -224,6 +224,19 @@ if (typeof chrome !== "undefined" && chrome.runtime?.id && typeof window !== "un
       url: () => new URL(location.href),
       registry: adapterRegistry,
       observe: true,
+      ...(frame.inFrame
+        ? {}
+        : {
+            onStatusChange: (status: PageStatus) => {
+              void chrome.runtime
+                .sendMessage({
+                  version: 1,
+                  type: "SET_TAB_BADGE",
+                  count: status.blockedVideoCount
+                })
+                .catch(() => undefined);
+            }
+          }),
       ...frame
     });
     scope.__afbKernel = kernel;
