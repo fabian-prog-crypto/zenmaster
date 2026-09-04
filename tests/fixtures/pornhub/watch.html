@@ -5,24 +5,47 @@
   </head>
   <body data-adapter="pornhub">
     <main>
-      <div class="video-player" data-afb-expect="player"><video controls></video></div>
-      <aside
-        id="hd-rightColVideoPage"
-        class="related-videos"
-        aria-label="Related"
-        data-afb-expect="hide"
-      >
-        <ul id="relateRecommendedItems">
+      <div class="topSectionGrid">
+        <div class="video-player" data-afb-expect="player"><video controls></video></div>
+        <div class="sideColumn original">
+          <div class="extraRelatedVid latestThumbDesign" data-afb-expect="hide">
+            <ul>
+              <li class="pcVideoListItem"><a href="/view_video.php?viewkey=rail-1">[rail-1]</a></li>
+              <li class="pcVideoListItem"><a href="/view_video.php?viewkey=rail-2">[rail-2]</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="video-wrapper js-relatedRecommended related-videos" data-afb-expect="hide">
+        <ul id="relatedVideosListing">
           <li class="pcVideoListItem">
-            <a href="/view_video.php?viewkey=item-1">[thumb-1]</a
-            ><a href="/view_video.php?viewkey=item-1">[title-1]</a>
+            <a href="/view_video.php?viewkey=related-1">[related-1]</a>
           </li>
           <li class="pcVideoListItem">
-            <a href="/view_video.php?viewkey=item-2">[thumb-2]</a
-            ><a href="/view_video.php?viewkey=item-2">[title-2]</a>
+            <a href="/view_video.php?viewkey=related-2">[related-2]</a>
           </li>
         </ul>
-      </aside>
+      </div>
+      <div
+        id="under-player-playlists"
+        class="sectionWrapper video-wrapper original"
+        data-afb-expect="hide"
+      >
+        <ul id="videoPlayList" class="videos user-playlist">
+          <li>
+            <a href="/view_video.php?viewkey=playlist-1">[playlist-1]</a
+            ><a href="/playlist/1">[view-1]</a>
+          </li>
+          <li>
+            <a href="/view_video.php?viewkey=playlist-2">[playlist-2]</a
+            ><a href="/playlist/2">[view-2]</a>
+          </li>
+          <li>
+            <a href="/view_video.php?viewkey=playlist-3">[playlist-3]</a
+            ><a href="/playlist/3">[view-3]</a>
+          </li>
+        </ul>
+      </div>
       <button class="autoplay-next" aria-label="Autoplay next" aria-checked="true">Autoplay</button>
     </main>
   </body>

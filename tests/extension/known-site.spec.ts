@@ -38,6 +38,14 @@ test("registers persistent built-in scripts and hides watch recommendations", as
     "data-afb-hidden",
     /recommendation/
   );
+  await expect(page.locator(".extraRelatedVid")).toHaveAttribute(
+    "data-afb-hidden",
+    /recommendation/
+  );
+  await expect(page.locator("#under-player-playlists")).toHaveAttribute(
+    "data-afb-hidden",
+    /recommendation/
+  );
   await expect(page.locator(".video-player")).not.toHaveAttribute("data-afb-hidden", /.*/);
   await expect(page.locator("video")).toBeAttached();
   await expect
@@ -47,7 +55,7 @@ test("registers persistent built-in scripts and hides watch recommendations", as
         return tab?.id ? await chrome.action.getBadgeText({ tabId: tab.id }) : "";
       })
     )
-    .toBe("2");
+    .toBe("7");
 });
 
 test("uses the Pornhub adapter on the German hostname without hiding the page shell", async () => {
@@ -62,6 +70,14 @@ test("uses the Pornhub adapter on the German hostname without hiding the page sh
   await page.goto("https://de.pornhub.org/view_video.php?viewkey=afb-fixture");
   await expect(page.locator("main")).toBeVisible();
   await expect(page.locator(".related-videos")).toHaveAttribute(
+    "data-afb-hidden",
+    /pornhub:recommendation/
+  );
+  await expect(page.locator(".extraRelatedVid")).toHaveAttribute(
+    "data-afb-hidden",
+    /pornhub:recommendation/
+  );
+  await expect(page.locator("#under-player-playlists")).toHaveAttribute(
     "data-afb-hidden",
     /pornhub:recommendation/
   );

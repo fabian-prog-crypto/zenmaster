@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3 — Ruleset 1
+
+### Repaired
+
+- Added the current Pornhub two-card `.extraRelatedVid` rail to watch-page protection.
+- Added the `#under-player-playlists` recommendation module while preserving playlist library pages.
+
 ## 0.1.2 — Ruleset 1
 
 ### Added

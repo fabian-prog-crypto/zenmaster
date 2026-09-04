@@ -49,6 +49,8 @@ const siteRecommendationSelectors: Partial<Record<string, readonly string[]>> = 
     "#relateRecommendedItems",
     "#relatedVideosCenter",
     ".video-wrapper.js-relatedRecommended",
+    ".extraRelatedVid",
+    "#under-player-playlists",
     ".thumb-list--sidebar",
     ".recommended-video-wrapper",
     "[data-testid='video-recommendations']"
